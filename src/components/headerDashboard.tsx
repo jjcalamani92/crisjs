@@ -15,7 +15,7 @@ import Head from 'next/head';
 const navigation = [
   { name: 'sites', href: '/dashboard/sites', current: false },
   { name: 'clients', href: '/dashboard/clients', current: false },
-  { name: 'products', href: '/dashboard/products', current: false },
+  // { name: 'products', href: '/dashboard/products', current: false },
   // { name: 'Calendar', href: '#', current: false },
   // { name: 'Reports', href: '#', current: false },
 ]

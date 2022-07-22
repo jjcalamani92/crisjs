@@ -1,7 +1,9 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FC } from "react";
+import { Banner } from "../components/banner";
 import Header from "../components/headerPages";
+import { Hero } from "../components/hero";
 
 interface Props {
 	title: string;
@@ -17,8 +19,9 @@ export const Pages: FC<Props> = ({
 	imageFullUrl
 }) => {
 	const router = useRouter()
-  const { pathname } = router
-  const p = pathname.substring(1).split('/')
+  const { pathname, asPath } = router
+	console.log(asPath);
+	
 	return (
 		<>
 			<Head>
@@ -33,12 +36,17 @@ export const Pages: FC<Props> = ({
 				<meta property="product:price:amount" content="25" />
 			</Head>
       <Header />
-			{/* <Header /> */}
-			{/* <Search01 /> */}
+      <Banner />
+			
 			<main>
-					{/* {children} */}
+				{
+					asPath === '/'
+					?
+					<Hero />
+					:
+					null
+				}
 			</main>
-			{/* <Footer /> */}
 			
 			</>
 	);
