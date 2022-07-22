@@ -8,13 +8,18 @@ import Head from 'next/head';
 // import { HeadingDashboard, HeadingForm } from '../components/component';
 import { HeaderDashboard } from '../components/headerDashboard';
 import { ISite } from '../interfaces/site';
+import { Heading, Main } from '../components/component';
+import { TreeAnt } from '../components/ant/tree';
 
 interface Props {
   title: string
   data?:ISite[]
   site?:ISite
+  tree: any
 }
-export const Dashboard:FC<Props> = ({title, data, site}) => {  
+export const Dashboard:FC<Props> = ({title, data, site, tree}) => {  
+  // console.log(tree);
+  
   const { query } = useRouter()
   // let url = asPath.substring(1).split('/')
   // console.log(url[url.length-1].length);
@@ -28,7 +33,17 @@ export const Dashboard:FC<Props> = ({title, data, site}) => {
 				<meta name="keywords" />
 			</Head>
         <HeaderDashboard/>
-        <main>
+        <Main>
+        <div className='grid grid-cols-5 gap-3'>
+            <div className='col-span-1'>
+              <Heading title='Rutas' />
+              <TreeAnt tree={tree} />
+
+            </div>
+            <main className='col-span-4'>
+              {/* {children} */}
+            </main>
+          </div>
           {/* {
              (query.slug?.length === 3 && url[url.length-1].length === 24) || url[url.length-1] === 'new'
              ?
@@ -47,7 +62,7 @@ export const Dashboard:FC<Props> = ({title, data, site}) => {
            
             null
           } */}
-        </main>
+        </Main>
     </>
   )
 }

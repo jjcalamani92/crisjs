@@ -9,26 +9,28 @@ import { graphQLClientS } from '../swr/graphQLClient'
 
 interface Props {
   site: ISite
+  sitesAll: ISite[]
   tree: any
+  sites: any
 }
 
-const Home: FC<Props> = ({ site, tree }) => {
+const Home: FC<Props> = ({ site, tree, sites, sitesAll }) => {
   const { asPath } = useRouter()
-  console.log(tree);
-  
-  return ( 
+  return (
     <>
-    {
-      asPath === '/'
-      ?
-      <Pages 
-      title='crisjs'
-      />
-      :
-      <Dashboard
-      title='crisjs'
-      />
-    }
+      {
+        asPath === '/'
+          ?
+          <Pages
+            title='crisjs'
+            sites={sitesAll}
+          />
+          :
+          <Dashboard
+            title='crisjs'
+            tree={sites}
+          />
+      }
 
     </>
 
@@ -80,6 +82,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug = [] } = params as { slug: string[] }
   // console.log('slug', slug);
   const { site } = await graphQLClientS.request(SITE, { _id: process.env.API_SITE })
+
   const data = await graphQLClientS.request(SITE_PATHS_TREE, { _id: process.env.API_SITE })
   // console.log(data);
   let tree = data.site.route.map((data0: Children, i: number) => (
@@ -94,21 +97,32 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
               title: data1.name,
               key: `0-${i}-${j}`,
               children:
-              data1.children
-              ?
-              data1.children.map((data2:Children, k: number) => (
-                {
-                  title: data2.name,
-                  key: `0-${i}-${j}-${k}`,
-                }
-              ))
-              :
-              {}
+                data1.children
+                  ?
+                  data1.children.map((data2: Children, k: number) => (
+                    {
+                      title: data2.name,
+                      key: `0-${i}-${j}-${k}`,
+                      children:
+                        data2.children
+                          ?
+                          data2.children.map((data3: Children, l: number) => (
+                            {
+                              title: data3.name,
+                              key: `0-${i}-${j}-${k}-${l}`,
+                            }))
+                          :
+                          []
+
+                    }
+                  ))
+                  :
+                  []
 
             }
           ))
           :
-          {}
+          []
     }
     // data0.children 
     //   ?
@@ -137,10 +151,63 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     //     title: data0.name,
     //   },
   ))
-  console.log(tree.flat(10));
+  const { sitesAll } = await graphQLClientS.request(SITES)
+  let sites = sitesAll.map((data: ISite, i: number) => (
+    {
+      title: data.data.domain,
+      key: `/dashboard/sites/${data.data.domain}`,
+      children:
+        data.route
+          ?
+          data.route.map((data0: Children, j: number) => (
+            {
+              title: data0.name,
+              key: `/dashboard/sites/${data.data.domain}/${data0.href}`,
+              children:
+                data0.children
+                  ?
+                  data0.children.map((data1: Children, k: number) => (
+                    {
+                      title: data1.name,
+                      key: `/dashboard/sites/${data.data.domain}/${data0.href}/${data1.href}`,
+                      children:
+                        data1.children
+                          ?
+                          data1.children.map((data2: Children, l: number) => (
+                            {
+                              title: data2.name,
+                              key: `/dashboard/sites/${data.data.domain}/${data0.href}/${data1.href}/${data2.href}`,
+                              children:
+                                data2.children
+                                  ?
+                                  data2.children.map((data3: Children, m: number) => (
+                                    {
+                                      title: data3.name,
+                                      key: `/dashboard/sites/${data.data.domain}/${data0.href}/${data1.href}/${data2.href}/${data3.href}`,
+
+                                    }))
+                                  :
+                                  []
+
+                            }
+                          ))
+                          :
+                          []
+                    }
+                  ))
+                  :
+                  []
+            }
+          ))
+          :
+          []
+    }
+  ))
+
+  console.log(sites);
 
   return {
-    props: { site, tree }, // will be passed to the page component as props
+    props: { site, sitesAll, tree, sites }, // will be passed to the page component as props
     revalidate: 10,
   }
 }

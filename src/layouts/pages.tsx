@@ -4,23 +4,29 @@ import { FC } from "react";
 import { Banner } from "../components/banner";
 import Header from "../components/headerPages";
 import { Hero } from "../components/hero";
+import { Children, ISite } from "../interfaces/site";
 
 interface Props {
 	title: string;
 	pageDescription?: string;
 	imageFullUrl?: string;
 	children?: React.ReactNode;
+	sites: ISite[]
 }
 
 export const Pages: FC<Props> = ({
 	title,
 	children,
 	pageDescription,
-	imageFullUrl
+	imageFullUrl,
+	sites
 }) => {
 	const router = useRouter()
   const { pathname, asPath } = router
-	console.log(asPath);
+	// console.log(sites);
+	const site = sites.find((site: { _id: string; }) => site._id === "62d9a34206c0f40df4f4d212")
+	const data = site?.route[0].content.body
+	console.log(data);
 	
 	return (
 		<>
@@ -35,14 +41,13 @@ export const Pages: FC<Props> = ({
 				<meta property="product:price:currency" content="USD" />
 				<meta property="product:price:amount" content="25" />
 			</Head>
-      <Header />
       <Banner />
-			
+      <Header />
 			<main>
 				{
 					asPath === '/'
 					?
-					<Hero />
+					<Hero data={data}/>
 					:
 					null
 				}

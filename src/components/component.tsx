@@ -12,13 +12,13 @@ interface Main {
 
 export const Main: FC<Main> = ({ children }) => {
   return (
-    <div className="bg-white">
+    <main className="bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto lg:max-w-none">
           {children}
         </div>
       </div>
-    </div>
+    </main>
   )
 }
 interface Button {

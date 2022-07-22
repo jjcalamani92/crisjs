@@ -18,6 +18,36 @@ export const SITES = gql`
         location
         description
       }
+      route {
+        name
+        href
+        content {
+          body {
+            title
+            caption
+            content
+            imageSrc
+            imageAlt
+            button
+          }
+        }
+        children {
+          name
+          href
+          children {
+            name
+            href
+            children {
+              name
+              href
+              children {
+                name
+                href
+              }
+            }
+          }
+        }
+      }
     }
   }
 `;
