@@ -5,6 +5,7 @@ import { FC } from 'react'
 import { SITE, SITES, SITE_CONTENT, SITE_PATHS, SITE_PATHS_TREE } from '../graphql/site.query'
 import { Children, ISite, Section0, Section1 } from '../interfaces/site'
 import { Dashboard } from '../layouts/dashboard'
+import { Loading } from '../layouts/loading'
 import { Pages } from '../layouts/pages'
 import { graphQLClientS } from '../swr/graphQLClient'
 
@@ -27,10 +28,11 @@ const Home: FC<Props> = ({ sites, sitesAll }) => {
             sites={sitesAll}
           />
           :
-          <Dashboard
-            title='crisjs'
-            tree={sites}
-          />
+          <Loading />
+          // <Dashboard
+          //   title='crisjs'
+          //   tree={sites}
+          // />
       }
 
     </>
