@@ -28,11 +28,14 @@ const Home: FC<Props> = ({ sites, sitesAll }) => {
             sites={sitesAll}
           />
           :
+          asPath === '/dashboard'
+          ?
+          <Dashboard
+            title='crisjs'
+            tree={sites}
+          />
+          :
           <Loading />
-          // <Dashboard
-          //   title='crisjs'
-          //   tree={sites}
-          // />
       }
 
     </>
