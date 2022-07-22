@@ -1,3 +1,4 @@
+import { DataNode } from 'antd/es/tree'
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
@@ -8,14 +9,14 @@ import { Pages } from '../layouts/pages'
 import { graphQLClientS } from '../swr/graphQLClient'
 
 interface Props {
-  site: ISite
   sitesAll: ISite[]
-  tree: any
-  sites: any
+  sites: DataNode[]
 }
 
-const Home: FC<Props> = ({ site, tree, sites, sitesAll }) => {
+const Home: FC<Props> = ({ sites, sitesAll }) => {
   const { asPath } = useRouter()
+  // console.log(sites);
+  
   return (
     <>
       {
@@ -81,76 +82,77 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug = [] } = params as { slug: string[] }
   // console.log('slug', slug);
-  const { site } = await graphQLClientS.request(SITE, { _id: process.env.API_SITE })
+  // const { site } = await graphQLClientS.request(SITE, { _id: process.env.API_SITE })
 
-  const data = await graphQLClientS.request(SITE_PATHS_TREE, { _id: process.env.API_SITE })
-  // console.log(data);
-  let tree = data.site.route.map((data0: Children, i: number) => (
-    {
-      title: data0.name,
-      key: `0-${i}`,
-      children:
-        data0.children
-          ?
-          data0.children.map((data1: Children, j: number) => (
-            {
-              title: data1.name,
-              key: `0-${i}-${j}`,
-              children:
-                data1.children
-                  ?
-                  data1.children.map((data2: Children, k: number) => (
-                    {
-                      title: data2.name,
-                      key: `0-${i}-${j}-${k}`,
-                      children:
-                        data2.children
-                          ?
-                          data2.children.map((data3: Children, l: number) => (
-                            {
-                              title: data3.name,
-                              key: `0-${i}-${j}-${k}-${l}`,
-                            }))
-                          :
-                          []
+  // const data = await graphQLClientS.request(SITE_PATHS_TREE, { _id: process.env.API_SITE })
+  // // console.log(data);
+  // let tree = data.site.route.map((data0: Children, i: number) => (
+  //   {
+  //     title: data0.name,
+  //     key: `0-${i}`,
+  //     children:
+  //       data0.children
+  //         ?
+  //         data0.children.map((data1: Children, j: number) => (
+  //           {
+  //             title: data1.name,
+  //             key: `0-${i}-${j}`,
+  //             children:
+  //               data1.children
+  //                 ?
+  //                 data1.children.map((data2: Children, k: number) => (
+  //                   {
+  //                     title: data2.name,
+  //                     key: `0-${i}-${j}-${k}`,
+  //                     children:
+  //                       data2.children
+  //                         ?
+  //                         data2.children.map((data3: Children, l: number) => (
+  //                           {
+  //                             title: data3.name,
+  //                             key: `0-${i}-${j}-${k}-${l}`,
+  //                           }))
+  //                         :
+  //                         []
 
-                    }
-                  ))
-                  :
-                  []
+  //                   }
+  //                 ))
+  //                 :
+  //                 []
 
-            }
-          ))
-          :
-          []
-    }
-    // data0.children 
-    //   ?
-    //   data0.children.map((data1: Children, j:number) => (
-    //   [
-    //     {
-    //       title: data1.name,
-    //       key: `0-${i}-${j}`
-    //     },
-    //     data1.children
-    //     ?
-    //     data1.children.map((data2: Children, k:number) => (
-    //       {
-    //         title: data2.name,
-    //         key: `0-${i}-${j}-${k}`
-    //       }
-    //     ))
-    //     : 
-    //     {
-    //       title: data0.name,
-    //     },
-    //   ]
-    //   ))
-    //   :
-    //   {
-    //     title: data0.name,
-    //   },
-  ))
+  //           }
+  //         ))
+  //         :
+  //         []
+  //   }
+  //   // data0.children 
+  //   //   ?
+  //   //   data0.children.map((data1: Children, j:number) => (
+  //   //   [
+  //   //     {
+  //   //       title: data1.name,
+  //   //       key: `0-${i}-${j}`
+  //   //     },
+  //   //     data1.children
+  //   //     ?
+  //   //     data1.children.map((data2: Children, k:number) => (
+  //   //       {
+  //   //         title: data2.name,
+  //   //         key: `0-${i}-${j}-${k}`
+  //   //       }
+  //   //     ))
+  //   //     : 
+  //   //     {
+  //   //       title: data0.name,
+  //   //     },
+  //   //   ]
+  //   //   ))
+  //   //   :
+  //   //   {
+  //   //     title: data0.name,
+  //   //   },
+  // ))
+
   const { sitesAll } = await graphQLClientS.request(SITES)
   let sites = sitesAll.map((data: ISite, i: number) => (
     {
@@ -204,10 +206,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
   ))
 
-  console.log(sites);
-
   return {
-    props: { site, sitesAll, tree, sites }, // will be passed to the page component as props
+    props: { sitesAll, sites }, // will be passed to the page component as props
     revalidate: 10,
   }
 }

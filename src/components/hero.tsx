@@ -20,9 +20,6 @@ interface Props {
 
 export const Hero: FC<Props> = ({ data }) => {
   const { title, caption, content, imageSrc, imageAlt } = data
-  console.log(data);
-  console.log(title);
-  
   return (
     <Main>
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 content-center'>
@@ -55,12 +52,14 @@ export const Hero: FC<Props> = ({ data }) => {
             </div>
           </div>
         </main>
-        <div className=" lg:inset-y-5 lg:right-0 flex justify-center relative">
+        <div className="flex justify-center">
           <Image
-            className="absolute h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+            // className="absolute z-0 h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
             src={imageSrc}
             alt={imageAlt}
-            layout={"fill"}
+            width={500}
+            height={200}
+            objectFit="contain"
           />
         </div>
       </div>

@@ -10,14 +10,13 @@ import { HeaderDashboard } from '../components/headerDashboard';
 import { ISite } from '../interfaces/site';
 import { Heading, Main } from '../components/component';
 import { TreeAnt } from '../components/ant/tree';
+import { DataNode } from 'antd/es/tree';
 
 interface Props {
   title: string
-  data?:ISite[]
-  site?:ISite
-  tree: any
+  tree: DataNode[]
 }
-export const Dashboard:FC<Props> = ({title, data, site, tree}) => {  
+export const Dashboard:FC<Props> = ({title, tree}) => {  
   // console.log(tree);
   
   const { query } = useRouter()
