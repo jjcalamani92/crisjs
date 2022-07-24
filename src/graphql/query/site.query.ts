@@ -6,9 +6,9 @@ export const SITES = gql`
       _id
       client
       type
+      domain
       data {
         title
-        domain
         icon
         logo
         imageSrc
@@ -21,28 +21,34 @@ export const SITES = gql`
       route {
         name
         href
+        description
         content {
           body {
-            title
-            caption
-            content
+            h1
+            span
+            p
             imageSrc
             imageAlt
-            button
           }
         }
         children {
           name
           href
+          icon
+          description
           children {
             name
             href
+            icon
+            description
             children {
               name
               href
+              description
               children {
                 name
                 href
+                description
               }
             }
           }
@@ -57,9 +63,9 @@ export const SITE = gql`
       _id
       client
       type
+      domain
       data {
         title
-        domain
         logo
         icon
         imageSrc
@@ -76,16 +82,12 @@ export const SITE = gql`
         imageSrc
         imageAlt
         content {
-          header {
-            title
-            imageSrc
-          }
+          
           body {
-            title
-            caption
-            content
+            h1
+            span
+            p
             imageSrc
-            button
           }
         }
         children {
@@ -159,15 +161,12 @@ export const SITE_CONTENT = gql`
     site(_id: $_id) {
       route {
         content {
-          header {
-            title
-            imageSrc
-          }
+          
           body {
-            title
-            caption
+            h1
+            span
+            p
             imageSrc
-            button
           }
         }
       }

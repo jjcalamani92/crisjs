@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useContext } from 'react'
+import { FC, Fragment, useContext } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import {
   BookmarkAltIcon,
@@ -22,6 +22,11 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Children } from '../interfaces/site';
+import parse, { attributesToProps } from 'html-react-parser';
+import { Interweave, Markup } from 'interweave';
+import { Icon } from './icon'
+
 
 const solutions = [
   {
@@ -89,9 +94,15 @@ const recentPosts = [
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
+interface Header {
+  data: Children[] | any
+}
+export const Header:FC<Header> = ({data})  => {
 
-export default function Header() {
-
+  const services = data.find((data: { href: string}) => data.href === 'services')
+  const more = data.find((data: { href: string}) => data.href === 'mas')
+  const pages = data.filter((data: { children: Children[]}) => data.children.length === 0)
+  
   
   return (
     <Popover className="relative bg-white">
@@ -124,7 +135,7 @@ export default function Header() {
                       'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500'
                     )}
                   >
-                    <span>Servicios</span>
+                    <span>{services.name}</span>
                     <ChevronDownIcon
                       className={classNames(
                         open ? 'text-gray-600' : 'text-gray-400',
@@ -146,13 +157,13 @@ export default function Header() {
                     <Popover.Panel className="absolute z-100 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                          {solutions.map((item) => (
+                          {services.children.map((item:Children) => (
                             <a
                               key={item.name}
                               href={item.href}
                               className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                             >
-                              <item.icon className="flex-shrink-0 h-6 w-6 text-orange-600" aria-hidden="true" />
+                              <Icon icon={`${item.icon}`} />
                               <div className="ml-4">
                                 <p className="text-base font-medium text-gray-900">{item.name}</p>
                                 <p className="mt-1 text-sm text-gray-500">{item.description}</p>
@@ -179,17 +190,16 @@ export default function Header() {
                 </>
               )}
             </Popover>
-
-            <Link href="/prices">
-              <a className="text-base font-medium text-gray-500 hover:text-gray-900">
-                Precios
-              </a>
-            </Link>
-            <Link href="#">
-              <a className="text-base font-medium text-gray-500 hover:text-gray-900">
-                Blogs
-              </a>
-            </Link>
+            {
+              pages.map((data:Children, i:number) => (
+                <Link href="/prices" key={i}>
+                  <a className="text-base font-medium text-gray-500 hover:text-gray-900">
+                    {data.name}
+                  </a>
+                </Link>
+              ))
+            }
+            
 
 
             <Popover className="relative">
@@ -223,16 +233,16 @@ export default function Header() {
                     <Popover.Panel className="absolute z-100 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0">
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                          {resources.map((item, i) => (
+                          {more.children.map((data:Children, i:number) => (
                             <Link  key={i}
-                            href={item.href}>
+                            href={data.href}>
                             <a
                               className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
                             >
-                              <item.icon className="flex-shrink-0 h-6 w-6 text-orange-600" aria-hidden="true" />
+                              <Icon icon={`${data.icon}`} />
                               <div className="ml-4">
-                                <p className="text-base font-medium text-gray-900">{item.name}</p>
-                                <p className="mt-1 text-sm text-gray-500">{item.description}</p>
+                                <p className="text-base font-medium text-gray-900">{data.name}</p>
+                                <p className="mt-1 text-sm text-gray-500">{data.description}</p>
                               </div>
                             </a>
                             </Link>

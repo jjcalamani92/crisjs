@@ -2,8 +2,9 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { FC } from "react";
 import { Banner } from "../components/banner";
-import Header from "../components/headerPages";
+import { Header } from "../components/headerPages";
 import { Hero } from "../components/hero";
+import { Pricing } from "../components/pricing";
 import { Children, ISite } from "../interfaces/site";
 
 interface Props {
@@ -24,9 +25,11 @@ export const Pages: FC<Props> = ({
 	const router = useRouter()
   const { pathname, asPath } = router
 	// console.log(sites);
-	const site = sites.find((site: { _id: string; }) => site._id === "62d9a34206c0f40df4f4d212")
-	const data = site?.route[0].content.body
-	console.log(data);
+	const site = sites.find((site: { _id: string; }) => site._id === process.env.API_SITE)
+	const hero = site?.route[0].content.body
+	const header = site?.route .filter((data: { href: string}) => data.href !== 'home')
+	
+	
 	
 	return (
 		<>
@@ -41,13 +44,17 @@ export const Pages: FC<Props> = ({
 				<meta property="product:price:currency" content="USD" />
 				<meta property="product:price:amount" content="25" />
 			</Head>
-      <Banner />
-      <Header />
+      {/* <Banner /> */}
+      <Header data={header}  />
 			<main>
 				{
 					asPath === '/'
 					?
-					<Hero data={data}/>
+					<Hero data={hero}/>
+					:
+					asPath === '/prices'
+					?
+					<Pricing />
 					:
 					null
 				}

@@ -8,60 +8,39 @@ import Head from 'next/head';
 // import { HeadingDashboard, HeadingForm } from '../components/component';
 import { HeaderDashboard } from '../components/headerDashboard';
 import { ISite } from '../interfaces/site';
-import { Heading, Main } from '../components/component';
+import { Heading, HeadingDashboard, Main } from '../components/component';
 import { TreeAnt } from '../components/ant/tree';
 import { DataNode } from 'antd/es/tree';
+import { GridSite } from '../components/grid/gridSite';
+import { Domain } from './domain';
 
 interface Props {
   title: string
   tree: DataNode[]
+  sites: ISite[]
+
 }
-export const Dashboard:FC<Props> = ({title, tree}) => {  
-  // console.log(tree);
-  
-  const { query } = useRouter()
-  // let url = asPath.substring(1).split('/')
-  // console.log(url[url.length-1].length);
-  // const site = data.find((data: {_id: string; }) => data._id === url[url.length-1])
-  // console.log(site);
-  
+export const Dashboard: FC<Props> = ({ title, tree, sites }) => {
+  const { asPath } = useRouter()
+  // console.log(asPath.split('/'));
+
   return (
     <>
       <Head>
-				<title>{title}</title>
-				<meta name="keywords" />
-			</Head>
-        <HeaderDashboard/>
-        <Main>
-        <div className='grid grid-cols-5 gap-3'>
-            <div className='col-span-1'>
-              <Heading title='Rutas' />
-              <TreeAnt tree={tree} />
-
-            </div>
-            <main className='col-span-4'>
-              {/* {children} */}
-            </main>
-          </div>
-          {/* {
-             (query.slug?.length === 3 && url[url.length-1].length === 24) || url[url.length-1] === 'new'
-             ?
-             <>
-              <HeadingForm title="Sitio"/>
-              {/* <FormSite site={site} url={asPath}/> 
-             </>
-             :
-            asPath === '/dashboard/sites'
+        <title>{title}</title>
+      </Head>
+      <HeaderDashboard />
+      {
+        asPath === '/dashboard/sites'
+          ?
+          <Domain tree={tree} sites={sites} />
+          :
+          asPath.split('/').length === 4 && asPath.split('/')[2] === "sites"
             ?
-            <>
-              <HeadingDashboard title='Sitio' url={asPath} />
-              {/* <GridSite data={data}/> 
-            </>
+            <Domain tree={tree} sites={sites} />
             :
-           
-            null
-          } */}
-        </Main>
+            <h1>hola</h1>
+      }
     </>
   )
 }
