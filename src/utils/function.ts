@@ -1,4 +1,4 @@
-export function capitalizar(str) {
+export function capitalizar(str:string) {
   return str
     .trim()
     .replace(/\s+/g, ' ')
@@ -7,7 +7,7 @@ export function capitalizar(str) {
     });
 }
 
-export function slug(str) {
+export function slug(str: string) {
   return str
     .trim()
     .toLowerCase()
