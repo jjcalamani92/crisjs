@@ -6,10 +6,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 // import { HeadingDashboard, HeadingForm } from '../components/component';
-import { HeaderDashboard } from '../components/headerDashboard';
+import { HeaderDashboard } from './headerDashboard';
 import { ISite } from '../interfaces/site';
-import { Heading, Main } from '../components/component';
-import { TreeAnt } from '../components/ant/tree';
+import { Heading, Main } from './component';
+import { TreeAnt } from './ant/tree';
 import { DataNode } from 'antd/es/tree';
 
 interface Props {

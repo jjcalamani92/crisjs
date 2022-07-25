@@ -1,46 +1,31 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { FC, Fragment, useContext, useState } from 'react';
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
-// import { HeadingDashboard, HeadingForm } from '../components/component';
-import { HeaderDashboard } from '../components/headerDashboard';
-import { ISite } from '../interfaces/site';
-import { Heading, HeadingDashboard, Main } from '../components/component';
-import { TreeAnt } from '../components/ant/tree';
-import { DataNode } from 'antd/es/tree';
-import { GridSite } from '../components/grid/gridSite';
-import { Domain } from './domain';
+import { DataNode } from "antd/lib/tree"
+import { useRouter } from "next/router"
+import { FC } from "react"
+import { TreeAnt } from "../components/ant/tree"
+import { Heading, HeadingDashboard, Main } from "../components/component"
+import { GridSite } from "../components/grid/gridSite"
+import { ISite } from "../interfaces/site"
 
-interface Props {
-  title: string
+interface Dashboard {
   tree: DataNode[]
   sites: ISite[]
-
 }
-export const Dashboard: FC<Props> = ({ title, tree, sites }) => {
-  const { asPath } = useRouter()
-  // console.log(asPath.split('/'));
 
+export const Dashboard:FC<Dashboard> = ({sites, tree}) => {
+  const {asPath} = useRouter()
   return (
-    <>
-      <Head>
-        <title>{title}</title>
-      </Head>
-      <HeaderDashboard />
-      {
-        asPath === '/dashboard/sites'
-          ?
-          <Domain tree={tree} sites={sites} />
-          :
-          asPath.split('/').length === 4 && asPath.split('/')[2] === "sites"
-            ?
-            <Domain tree={tree} sites={sites} />
-            :
-            <h1>hola</h1>
-      }
-    </>
+    <Main>
+      <div className='grid grid-cols-5 gap-3'>
+        <div className='col-span-1'>
+          <Heading title='Rutas' />
+          <TreeAnt tree={tree} />
+
+        </div>
+        <main className='col-span-4'>
+          <HeadingDashboard title='Sitios' url={asPath} />
+          <GridSite data={sites} />
+        </main>
+      </div>
+    </Main>
   )
 }

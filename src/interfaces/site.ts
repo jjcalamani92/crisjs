@@ -50,6 +50,21 @@ export interface Body {
   imageAlt: string;
   button: string[];
 }
+export interface SiteForm {
+  title: string;
+  domain: string;
+  logo: string;
+  icon: string;
+  imageSrc: string;
+  imageAlt: string;
+  numberPhone: number;
+  address: string;
+  location: string;
+  description: string;
+  type: string;
+  client: string;
+}
+
 // export interface Route {
 //   section_level_0: Section0[];
 // }

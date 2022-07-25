@@ -14,6 +14,7 @@ interface Props {
 
 const Home: FC<Props> = ({ sitesAll }) => {
   const site = getDataSite(sitesAll)
+  // console.log(site);
   
   return (
       <Layout

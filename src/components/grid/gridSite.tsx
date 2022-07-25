@@ -48,7 +48,7 @@ const CardSite: FC<CardSite> = ({ data }) => {
 
   return (
     <div className="shadow-lg p-2 ">
-      <Link href={`${asPath}/${domain}`}>
+      <Link href={`${asPath}/${_id}`}>
         <a>
           <div className="w-full bg-white rounded-sm overflow-hidden leading-none">
             <Image

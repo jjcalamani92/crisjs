@@ -5,7 +5,6 @@ export const CREATE_SITE = gql`
     createSite(input: $input) {
 			data{
       title
-      domain
       }
     }
   }
@@ -15,7 +14,6 @@ export const UPDATE_SITE = gql`
     updateSite(_id:$_id, input: $input) {
 			data{
       title
-      domain
       }
     }
   }
