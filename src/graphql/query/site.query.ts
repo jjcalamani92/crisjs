@@ -9,8 +9,8 @@ export const SITES = gql`
       domain
       data {
         title
-        icon
         logo
+        icon
         imageSrc
         imageAlt
         numberPhone
@@ -36,6 +36,8 @@ export const SITES = gql`
           href
           icon
           description
+          imageSrc
+          imageAlt
           children {
             name
             href

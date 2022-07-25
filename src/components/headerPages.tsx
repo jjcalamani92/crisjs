@@ -97,13 +97,12 @@ function classNames(...classes: string[]) {
 interface Header {
   data: Children[] | any
 }
-export const Header:FC<Header> = ({data})  => {
+export const Header: FC<Header> = ({ data }) => {
 
-  const services = data.find((data: { href: string}) => data.href === 'services')
-  const more = data.find((data: { href: string}) => data.href === 'mas')
-  const pages = data.filter((data: { children: Children[]}) => data.children.length === 0)
-  
-  
+  const services = data.find((data: { href: string }) => data.href === 'services')
+  const more = data.find((data: { href: string }) => data.href === 'mas')
+  const pages = data.filter((data: { children: Children[] }) => data.children?.length === 0)
+
   return (
     <Popover className="relative bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -157,7 +156,7 @@ export const Header:FC<Header> = ({data})  => {
                     <Popover.Panel className="absolute z-100 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                          {services.children.map((item:Children) => (
+                          {services.children.map((item: Children) => (
                             <a
                               key={item.name}
                               href={item.href}
@@ -191,15 +190,15 @@ export const Header:FC<Header> = ({data})  => {
               )}
             </Popover>
             {
-              pages.map((data:Children, i:number) => (
-                <Link href="/prices" key={i}>
+              pages.map((data: Children, i: number) => (
+                <Link href={data.href} key={i}>
                   <a className="text-base font-medium text-gray-500 hover:text-gray-900">
                     {data.name}
                   </a>
                 </Link>
               ))
             }
-            
+
 
 
             <Popover className="relative">
@@ -230,21 +229,21 @@ export const Header:FC<Header> = ({data})  => {
                     leaveFrom="opacity-100 translate-y-0"
                     leaveTo="opacity-0 translate-y-1"
                   >
-                    <Popover.Panel className="absolute z-100 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0">
+                    <Popover.Panel className="absolute z-100 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0 ">
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                          {more.children.map((data:Children, i:number) => (
-                            <Link  key={i}
-                            href={data.href}>
-                            <a
-                              className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
-                            >
-                              <Icon icon={`${data.icon}`} />
-                              <div className="ml-4">
-                                <p className="text-base font-medium text-gray-900">{data.name}</p>
-                                <p className="mt-1 text-sm text-gray-500">{data.description}</p>
-                              </div>
-                            </a>
+                          {more.children.map((data: Children, i: number) => (
+                            <Link key={i}
+                              href={data.href}>
+                              <a
+                                className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
+                              >
+                                <Icon icon={`${data.icon}`} />
+                                <div className="ml-4">
+                                  <p className="text-base font-medium text-gray-900">{data.name}</p>
+                                  <p className="mt-1 text-sm text-gray-500">{data.description}</p>
+                                </div>
+                              </a>
                             </Link>
                           ))}
                         </div>
@@ -298,13 +297,12 @@ export const Header:FC<Header> = ({data})  => {
         leaveFrom="opacity-100 scale-100"
         leaveTo="opacity-0 scale-95"
       >
-        <Popover.Panel focus className="top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
+        <Popover.Panel focus className="top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden absolute">
           <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
             <div className="pt-5 pb-6 px-5">
               <div className="flex items-center justify-between">
                 <Link href="/">
                   <a>
-                    {/* <span className="sr-only">Workflow</span> */}
                     <CodeIcon
                       className="w-12 h-12 text-orange-500"
                       aria-hidden="true"

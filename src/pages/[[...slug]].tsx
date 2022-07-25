@@ -8,21 +8,20 @@ import { Dashboard } from '../layouts/dashboard'
 import { Loading } from '../layouts/loading'
 import { Pages } from '../layouts/pages'
 import { graphQLClientS } from '../swr/graphQLClient'
+import { getDataTree } from '../utils/getDataTree'
+import { pathsGSP } from '../utils/getStaticPaths'
+import { paths, pathsAlls, tree } from '../utils/getStaticProps'
+import { getDataPaths } from '../utils/getDataPath';
+import { getDataSite } from '../utils/getDataSite'
+import { getPathsBySite } from '../utils/getPathsBySite'
 
 interface Props {
   sitesAll: ISite[]
-  sites: DataNode[]
-  paths: Children
-  pathsAlls: Children
 }
 
-const Home: FC<Props> = ({ sites, sitesAll, paths, pathsAlls }) => {
+const Home: FC<Props> = ({ sitesAll}) => {
   const { asPath } = useRouter()
-  console.log(pathsAlls);
   const url = asPath.split('/')
-  // console.log(paths);
-  // console.log(sites);
-  // console.log(pathsAlls);
 
   return (
     <>
@@ -31,14 +30,14 @@ const Home: FC<Props> = ({ sites, sitesAll, paths, pathsAlls }) => {
           ?
           <Dashboard
             title='crisjs'
-            tree={sites}
+            tree={tree(sitesAll)}
             sites={sitesAll}
-
           />
           :
           <Pages
             title='crisjs'
             sites={sitesAll}
+            site ={getDataSite(sitesAll, 'cris')}
           />
         // asPath === '/dashboard'
         //   ?
@@ -52,40 +51,8 @@ const Home: FC<Props> = ({ sites, sitesAll, paths, pathsAlls }) => {
 }
 export const getStaticPaths: GetStaticPaths = async () => {
   const { site } = await graphQLClientS.request(SITE_PATHS, { _id: process.env.API_SITE })
-  let path = site.route.map((data0: Children) => (
-    [
-      {
-        slug: data0.href === 'home' ? [] : [data0.href]
-      },
-      data0.children
-        ?
-        data0.children.map((data1: Children) => (
-          [{
-            slug: [data0.href, data1.href]
-          },
-          data1.children.map((data2: Children) => (
-            [{
-              slug: [data0.href, data1.href, data2.href]
-            },
-            data2.children.map((data3: Children) => ({
-              slug: [data0.href, data1.href, data2.href, data3.href]
-            }))
-            ]
-          )),
-          ]
-        ))
-        :
-        {
-          slug: []
-        }
-    ]
-  ))
-  const paths = path.flat(10).map((data: { slug: string[] }) => (
-    {
-      params: data
-    }
-  ))
-  // console.log(paths);
+  
+  const paths = pathsGSP(site)
 
   return {
     paths,
@@ -93,138 +60,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 }
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { slug = [] } = params as { slug: string[] }
-  // console.log(params);
-  
-  const { site } = await graphQLClientS.request(SITE_PATHS, { _id: process.env.API_SITE })
-  let path = site.route.map((data0: Children) => (
-    [
-      data0.children
-        ?
-        data0.children.map((data1: Children) => (
-          [{
-            path: `/${data0.href}/${data1.href}`
-          },
-          data1.children.map((data2: Children) => (
-            [{
-              path: [data0.href, data1.href, data2.href]
-            },
-            data2.children.map((data3: Children) => ({
-              path: [data0.href, data1.href, data2.href, data3.href]
-            }))
-            ]
-          )),
-          ]
-        ))
-        :
-        {
-          path: data0.href === 'home' ? '/' : `/${data0.href}`
-        },
-    ]
-  ))
-  const paths = path.flat(10).map((data: { slug: string[] }) => data)
-
   const { sitesAll } = await graphQLClientS.request(SITES)
-  let pathsAll = sitesAll.map((data: ISite) => (
-    [
-      {
-        path: `/dashboard/sites/${data.domain}`
-      },
-      data.route
-        ?
-        data.route.map((data0: Children ) => (
-          [
-            {
-              path: `/dashboard/sites/${data.domain}/${data0.href}`
-            },
-            data0.children
-            ?
-            data0.children.map((data1: Children) => (
-              [
-                {
-                  path: `/dashboard/sites/${data.domain}/${data0.href}/${data1.href}`
-                },
-                data1.children
-                ?
-                data1.children.map((data2: Children) => (
-                  {
-                    path: `/dashboard/sites/${data.domain}/${data0.href}/${data1.href}/${data2.href}`
-                  }
-                ))
-                :
-                {
-                  path: `/dashboard/sites/${data.domain}`
-                },
-              ]
-            ))
-            :
-            {
-              path: `/dashboard/sites/${data.domain}`
-            },
-          ]
-        ))
-        :
-        {
-          path: `/dashboard/sites/${data.domain}`
-        },
-    ]
-  ))
-  const pathsAlls = pathsAll.flat(10).map((data: { path: string }) => data)
-
-  let sites = sitesAll.map((data: ISite, i: number) => (
-    {
-      title: data.data.title,
-      key: `/dashboard/sites/${data.domain}`,
-      children:
-        data.route
-          ?
-          data.route.map((data0: Children, j: number) => (
-            {
-              title: data0.name,
-              key: `/dashboard/sites/${data.domain}/${data0.href}`,
-              children:
-                data0.children
-                  ?
-                  data0.children.map((data1: Children, k: number) => (
-                    {
-                      title: data1.name,
-                      key: `/dashboard/sites/${data.domain}/${data0.href}/${data1.href}`,
-                      children:
-                        data1.children
-                          ?
-                          data1.children.map((data2: Children, l: number) => (
-                            {
-                              title: data2.name,
-                              key: `/dashboard/sites/${data.domain}/${data0.href}/${data1.href}/${data2.href}`,
-                              children:
-                                data2.children
-                                  ?
-                                  data2.children.map((data3: Children, m: number) => (
-                                    {
-                                      title: data3.name,
-                                      key: `/dashboard/sites/${data.domain}/${data0.href}/${data1.href}/${data2.href}/${data3.href}`,
-
-                                    }))
-                                  :
-                                  []
-
-                            }
-                          ))
-                          :
-                          []
-                    }
-                  ))
-                  :
-                  []
-            }
-          ))
-          :
-          []
-    }
-  ))
 
   return {
-    props: { sitesAll, sites, paths, pathsAlls }, // will be passed to the page component as props
+    props: { sitesAll }, // will be passed to the page component as props
     revalidate: 10,
   }
 }

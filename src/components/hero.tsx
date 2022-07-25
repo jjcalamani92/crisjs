@@ -15,11 +15,11 @@ const navigation = [
 ]
 
 interface Props {
-  data: Body | any
+  contain: Body
 }
 
-export const Hero: FC<Props> = ({ data }) => {
-  const { h1, span, p, imageSrc, imageAlt } = data
+export const Hero: FC<Props> = ({ contain }) => {
+  const { h1, span, p, imageSrc, imageAlt } = contain
   return (
     <Main>
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 content-center'>

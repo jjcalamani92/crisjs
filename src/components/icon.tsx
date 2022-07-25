@@ -5,7 +5,6 @@ interface Icon {
   icon: string
 }
 export const Icon: FC<Icon> = ({ icon }) => {
-  // const icon = _.get('icon');
   const className = "flex-shrink-0 h-6 w-6 text-orange-600"
 
   switch (icon) {
