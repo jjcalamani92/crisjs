@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { FC } from "react";
 import { Banner } from "../components/banner";
+import { Footer } from "../components/footer";
 import { Header } from "../components/headerPages";
 import { Hero } from "../components/hero";
 import { Page } from "../components/pages";
@@ -9,16 +10,16 @@ import { Pricing } from "../components/pricing";
 import { Children, ISite } from "../interfaces/site";
 import { getDataByPage } from "../utils/getDataByPage";
 
-interface Props {
+interface Layout {
 	title: string;
 	pageDescription?: string;
 	imageFullUrl?: string;
 	children?: React.ReactNode;
-	sites: ISite[]
+	sites?: ISite[]
 	site: ISite
 }
 
-export const Pages: FC<Props> = ({
+export const Layout: FC<Layout> = ({
 	title,
 	children,
 	pageDescription,
@@ -52,9 +53,9 @@ export const Pages: FC<Props> = ({
 			</Head>
       <Header data={header}  />
 			<main>
-				{/* <Page site={site} /> */}
+				{children}
 			</main>
-			
+			<Footer />
 			</>
 	);
 };

@@ -13,7 +13,7 @@ interface Domain {
 
 export const Domain:FC<Domain> = ({sites, tree}) => {
   const {asPath} = useRouter()
-  console.log(asPath.split('/'));
+  // console.log(asPath.split('/'));
 
   return (
     <Main>
@@ -24,7 +24,6 @@ export const Domain:FC<Domain> = ({sites, tree}) => {
 
         </div>
         <main className='col-span-4'>
-          {/* {children} */}
           <HeadingDashboard title='Sitio' url={asPath} />
           <GridSite data={sites} />
         </main>
