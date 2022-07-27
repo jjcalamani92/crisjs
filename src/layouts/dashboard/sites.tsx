@@ -50,7 +50,7 @@ export const Site: FC<Site> = ({ sites, tree }) => {
             :
             <Grid data={data} url={asPath} />
           }
-          <FormSite data={getSiteDataForm(sites, query)} />
+          <FormSite data={getSiteDataForm(sites, asPath)} />
         </main>
       </div>
     </Main>

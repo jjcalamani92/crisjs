@@ -20,8 +20,12 @@ export function slug(str: string) {
     .replace(/ /g, '-');
 }
 
-export const getURL= (pathname: string) => {
+export const getURL = (pathname: string) => {
 	let url = pathname.split('/')
 	url.length = url.length - 1
 	return url.join('/')
+}
+
+export const getQuery = (asPath: string) => {
+	return asPath.slice(1).split('/')
 }

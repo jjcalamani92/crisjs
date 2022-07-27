@@ -11,7 +11,7 @@ import { Brand } from './brands';
 import { Blogs } from './blogs';
 import { Site } from '../layouts/dashboard/sites';
 import { Route } from '../layouts/dashboard/route';
-import { Pages } from '../layouts/dashboard/page';
+import { Children0 } from '../layouts/dashboard/page';
 import { getContentPage, getSiteByVne } from '../utils/getSiteByVne';
 import { getSiteDS, getSiteDSP, getSiteDSPC0, getSiteDSPC1 } from '../utils/getSiteByUrl';
 
@@ -20,7 +20,8 @@ interface Page {
 }
 export const Page: FC<Page> = ({ sites }) => {
   const { asPath, query } = useRouter()
-console.log(getSiteDSPC1(sites));
+console.log(getSiteDSPC0(sites));
+
 
   switch (asPath) {
     case '/':
@@ -39,13 +40,13 @@ console.log(getSiteDSPC1(sites));
     case '/dashboard':
       return <h1>Dashboard</h1>
     case '/dashboard/sites':
-      return <Dashboard sites={sites} tree={getDataTree(sites)} />
-    case getSiteDS(sites).find(url => url === asPath):
-      return <Site sites={sites} tree={getDataTree(sites)} />
-    case getSiteDSP(sites).find(url => url === asPath):
+      return <Dashboard sites={sites} tree={getDataTree(sites)} /> 
+    case getSiteDS(sites).find(url => url === asPath):  // dashboard/sites/[id] || dashboard/sites/new
+      return <Site sites={sites} tree={getDataTree(sites)} /> 
+    case getSiteDSP(sites).find(url => url === asPath): // dashboard/sites/[id]/pages
       return <Route sites={sites} tree={getDataTree(sites)} />
-    case getSiteDSPC0(sites).find(url => url === asPath):
-      return <Pages sites={sites} tree={getDataTree(sites)} />
+    case getSiteDSPC0(sites).find(url => url === asPath): // dashboard/sites/
+      return <Children0 sites={sites} tree={getDataTree(sites)} />
     default:
       return <Page404 />
 

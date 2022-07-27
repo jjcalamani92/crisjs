@@ -19,6 +19,7 @@ export const SITES = gql`
         description
       }
       route {
+        uid        
         name
         href
         description
@@ -34,6 +35,7 @@ export const SITES = gql`
           }
         }
         children {
+          uid   
           name
           href
           icon
@@ -41,15 +43,18 @@ export const SITES = gql`
           imageSrc
           imageAlt
           children {
+            uid   
             name
             href
             icon
             description
             children {
+              uid   
               name
               href
               description
               children {
+                uid   
                 name
                 href
                 description

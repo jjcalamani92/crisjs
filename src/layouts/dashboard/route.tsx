@@ -5,7 +5,7 @@ import { TreeAnt } from "../../components/ant/tree"
 import { Heading, HeadingDashboard, Main } from "../../components/component"
 import { GridSection } from "../../components/grid/gridPages"
 import { ISite } from "../../interfaces/site"
-import { getSiteChildren, getSiteDS } from "../../utils/getSiteByUrl"
+import { getChildrenDataForm, getSiteChildren, getSiteDS } from "../../utils/getSiteByUrl"
 
 interface Route {
   tree: DataNode[]
@@ -14,6 +14,7 @@ interface Route {
 
 export const Route: FC<Route> = ({ sites, tree }) => {
   const { asPath, pathname, query } = useRouter()
+  
   return (
     <Main>
       <div className='grid grid-cols-5 gap-3'>
@@ -23,7 +24,7 @@ export const Route: FC<Route> = ({ sites, tree }) => {
         </div>
         <main className='col-span-4'>
           <HeadingDashboard title='Páginas' url={asPath} />
-          <GridSection data={getSiteChildren(sites, query)}/>
+          <GridSection data={getSiteChildren(sites, asPath)}/>
         </main>
       </div>
     </Main>

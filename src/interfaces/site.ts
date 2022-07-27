@@ -65,6 +65,13 @@ export interface SiteForm {
   type: string;
   client: string;
 }
+export interface ChildrenForm {
+  uid?: string
+  name: string;
+  description: string;
+  imageSrc: string;
+  imageAlt: string;
+}
 
 // export interface Route {
 //   section_level_0: Section0[];
