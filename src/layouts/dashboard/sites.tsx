@@ -28,7 +28,6 @@ const data = [
     href: 'marks',
     imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg"
   },
-
 ]
 export const Site: FC<Site> = ({ sites, tree }) => {
   const { asPath, pathname, query } = useRouter()
@@ -38,7 +37,6 @@ export const Site: FC<Site> = ({ sites, tree }) => {
         <div className='col-span-1'>
           <Heading title='Rutas' />
           <TreeAnt tree={tree} />
-
         </div>
         <main className='col-span-4'>
           <HeadingDashboard title='Sitios' url={asPath} />
