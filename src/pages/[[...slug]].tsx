@@ -3,23 +3,20 @@ import { FC } from 'react'
 import { SITES, SITE_PATHS } from '../graphql/query/site.query'
 import { ISite } from '../interfaces/site'
 import { graphQLClientS } from '../swr/graphQLClient'
-import { getDataSite } from '../utils/getDataSite'
-import { getPathsBySite } from '../utils/getPathsBySite'
+import { getPathsBySite } from '../utils/getSiteByVne'
 import { Layout } from '../layouts/layout';
 import { Page } from '../components/pages'
+import { getSiteByVne } from '../utils/getSiteByVne'
 
 interface Props {
   sitesAll: ISite[]
 }
 
 const Home: FC<Props> = ({ sitesAll }) => {
-  const site = getDataSite(sitesAll)
-  // console.log(site);
-  
   return (
       <Layout
         title='crisjs'
-        site={site}
+        site={getSiteByVne(sitesAll)}
       >
         <Page sites={sitesAll} />
       </Layout>
@@ -27,6 +24,7 @@ const Home: FC<Props> = ({ sitesAll }) => {
 }
 export const getStaticPaths: GetStaticPaths = async () => {
   const { site } = await graphQLClientS.request(SITE_PATHS, { _id: process.env.API_SITE })
+  
   return {
     paths: getPathsBySite(site),
     fallback: 'blocking'

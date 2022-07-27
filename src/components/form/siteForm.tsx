@@ -25,6 +25,7 @@ import Swal from 'sweetalert2';
 import { graphQLClientS } from '../../swr/graphQLClient';
 import { CREATE_SITE } from '../../graphql';
 import { getURL } from '../../utils/function';
+import { SiteForm } from '../../interfaces/site';
 const { Option } = Select;
 
 const normFile = (e: any) => {
@@ -47,11 +48,11 @@ const filter = (inputValue: string, path: any[]) =>
   );
 
 interface Props {
-  site: any
+  data: SiteForm
   routes?: Option[]
 }
 
-export const SiteForm: FC<Props> = ({ site, routes }) => {
+export const FormSite: FC<Props> = ({ data, routes }) => {
   const [form] = Form.useForm();
   const { asPath, query, replace, push } = useRouter()
   // const [image, setImage] = useState<UploadFile[]>(product.imageSrc)
@@ -152,7 +153,7 @@ export const SiteForm: FC<Props> = ({ site, routes }) => {
         form={form}
         name="register"
         onFinish={onFinish}
-        initialValues={site}
+        initialValues={data}
         scrollToFirstError
         className='p-6'
       >
@@ -331,7 +332,7 @@ export const SiteForm: FC<Props> = ({ site, routes }) => {
           <Form.Item >
             <Button type="primary" htmlType="submit">
               {
-                site._id ? `Actualizar` : `Crear`
+                data._id ? `Actualizar` : `Crear`
               }
             </Button>
           </Form.Item>

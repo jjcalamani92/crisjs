@@ -1,14 +1,9 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FC } from "react";
-import { Banner } from "../components/banner";
 import { Footer } from "../components/footer";
 import { Header } from "../components/headerPages";
-import { Hero } from "../components/hero";
-import { Page } from "../components/pages";
-import { Pricing } from "../components/pricing";
-import { Children, ISite } from "../interfaces/site";
-import { getDataByPage } from "../utils/getDataByPage";
+import { ISite } from "../interfaces/site";
 
 interface Layout {
 	title: string;
@@ -33,7 +28,6 @@ export const Layout: FC<Layout> = ({
 	// const site = sites.find((site: { _id: string; }) => site._id === process.env.API_SITE)
 	const hero = site?.route[0].content.body
 	const header = site?.route .filter((data: { href: string}) => data.href !== 'home')
-	// console.log(getDataByPage(site));
 	
 	
 	

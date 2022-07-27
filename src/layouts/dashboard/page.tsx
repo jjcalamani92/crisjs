@@ -3,12 +3,9 @@ import { useRouter } from "next/router"
 import { FC } from "react"
 import { TreeAnt } from "../../components/ant/tree"
 import { Heading, HeadingDashboard, Main } from "../../components/component"
-import { FormSite } from "../../components/form/siteForm"
-import { Grid } from "../../components/grid/grid"
 import { ISite } from "../../interfaces/site"
-import { getSiteDataForm } from "../../utils/getSiteByUrl"
 
-interface Site {
+interface Pages {
   tree: DataNode[]
   sites: ISite[]
 }
@@ -30,8 +27,12 @@ const data = [
   },
 
 ]
-export const Site: FC<Site> = ({ sites, tree }) => {
-  const { asPath, pathname, query } = useRouter()
+export const Pages: FC<Pages> = ({ sites, tree }) => {
+  const { asPath, pathname } = useRouter()
+  // console.log('site', getSite(sites, asPath));
+  // console.log('route', getSiteChildren(sites, asPath));
+  
+  
   return (
     <Main>
       <div className='grid grid-cols-5 gap-3'>
@@ -42,8 +43,8 @@ export const Site: FC<Site> = ({ sites, tree }) => {
         </div>
         <main className='col-span-4'>
           <HeadingDashboard title='Sitios' url={asPath} />
-          <Grid data={data} url={asPath} />
-          <FormSite data={getSiteDataForm(sites, query)} />
+          <h1>Hola</h1>
+          {/* <FormSite site={site} url={getURL(pathname)} /> */}
         </main>
       </div>
     </Main>

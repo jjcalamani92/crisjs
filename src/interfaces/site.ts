@@ -25,7 +25,7 @@ export interface Children {
   name: string;
   href: string;
   description: string;
-  icon?: string;
+  icon: string;
   imageSrc: string;
   imageAlt: string;
   content: Content;
@@ -51,6 +51,7 @@ export interface Body {
   button: string[];
 }
 export interface SiteForm {
+  _id?: string
   title: string;
   domain: string;
   logo: string;

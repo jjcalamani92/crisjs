@@ -22,6 +22,8 @@ export const SITES = gql`
         name
         href
         description
+        imageSrc
+        imageAlt
         content {
           body {
             h1
