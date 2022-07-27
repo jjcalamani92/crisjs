@@ -15,7 +15,12 @@ import {
 
 } from 'antd';
 import React, { FC, useEffect, useState } from 'react';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
+import 'antd/lib/form/style/index.css'
+import 'antd/lib/input/style/index.css'
+import 'antd/lib/select/style/index.css'
+// import 'antd/lib/options/style/index.css'
+
 import { Main } from '../component';
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
 
@@ -206,7 +211,10 @@ export const FormSite: FC<Props> = ({ data, routes }) => {
               className="col-span-12 lg:col-span-6"
               rules={[{ required: true, message: 'Please input your phone number!' }]}
             >
-              <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
+              <Input 
+                // addonBefore={prefixSelector}
+                style={{ width: '100%' }} 
+              />
             </Form.Item>
 
             <Form.Item
