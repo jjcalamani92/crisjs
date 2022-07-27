@@ -16,7 +16,7 @@ export const getSiteDataForm = (
   const slug = getQuery(asPath)
 
   let data: SiteForm;
-  if (slug[slug.length - 1] === "new") {
+  if (slug[3] === "new") {
     data = {
       title: "dominio",
       domain: "dominio.com",
@@ -51,14 +51,15 @@ export const getSiteDataForm = (
   }
   return data;
 };
-export const getChildrenDataForm = (
+
+export const getChildren0DataForm = (
   sitesAll: ISite[],
   asPath: string
 ): ChildrenForm => {
   const slug = getQuery(asPath)
 
   let data: ChildrenForm;
-  if (slug[slug.length - 1] === "new") {
+  if (slug[4] === "new") {
     data = {
       name: "dominio",
       imageSrc:
@@ -68,7 +69,63 @@ export const getChildrenDataForm = (
 
     };
   } else {
-    const site = getSiteChildren(sitesAll, asPath).filter((data:Children) => data.href === slug[slug.length-1])[0]
+    const site = getSiteChildren0(sitesAll, asPath).filter((data:Children) => data.href === slug[4])[0]
+    data = {
+      uid: site.uid,
+      name: site.name,
+      imageSrc: site.imageSrc,
+      imageAlt: site.imageAlt,
+      description: site.description,
+    };
+  }
+  return data;
+};
+export const getChildren1DataForm = (
+  sitesAll: ISite[],
+  asPath: string
+): ChildrenForm => {
+  const slug = getQuery(asPath)
+
+  let data: ChildrenForm;
+  if (slug[5] === "new") {
+    data = {
+      name: "dominio",
+      imageSrc:
+        "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg",
+      imageAlt: "nan",
+      description: "description",
+
+    };
+  } else {
+    const site = getSiteChildren1(sitesAll, asPath).filter((data:Children) => data.href === slug[5])[0]
+    data = {
+      uid: site.uid,
+      name: site.name,
+      imageSrc: site.imageSrc,
+      imageAlt: site.imageAlt,
+      description: site.description,
+    };
+  }
+  return data;
+};
+export const getChildren2DataForm = (
+  sitesAll: ISite[],
+  asPath: string
+): ChildrenForm => {
+  const slug = getQuery(asPath)
+
+  let data: ChildrenForm;
+  if (slug[6] === "new") {
+    data = {
+      name: "dominio",
+      imageSrc:
+        "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg",
+      imageAlt: "nan",
+      description: "description",
+
+    };
+  } else {
+    const site = getSiteChildren2(sitesAll, asPath).filter((data:Children) => data.href === slug[6])[0]
     data = {
       uid: site.uid,
       name: site.name,
@@ -81,15 +138,20 @@ export const getChildrenDataForm = (
 };
 
 
-export const getSiteChildren = (sitesAll: ISite[], asPath: string):Children[] => {
-  const slug = getQuery(asPath)
-  
+export const getSiteChildren0 = (sitesAll: ISite[], asPath: string):Children[] => {
   return getSite(sitesAll, asPath).route
 }
 export const getSiteChildren1 = (sitesAll: ISite[], asPath: string):Children[] => {
   const slug = getQuery(asPath)
-  // console.log(slug[slug.length-1]);
-  return getSiteChildren(sitesAll, asPath).filter((data:Children) => data.href === slug[slug.length-1])[0].children
+  return getSiteChildren0(sitesAll, asPath).filter((data:Children) => data.href === slug[4])[0].children
+}
+export const getSiteChildren2 = (sitesAll: ISite[], asPath: string):Children[] => {
+  const slug = getQuery(asPath)
+  return getSiteChildren1(sitesAll, asPath).filter((data:Children) => data.href === slug[5])[0].children
+}
+export const getSiteChildren3 = (sitesAll: ISite[], asPath: string):Children[] => {
+  const slug = getQuery(asPath)
+  return getSiteChildren2(sitesAll, asPath).filter((data:Children) => data.href === slug[6])[0].children
 }
 
 export const getSiteDS = (sitesAll: ISite[]):string[] => {
@@ -105,6 +167,10 @@ export const getSiteDSPC0 = (sitesAll: ISite[]) => {
 
 export const getSiteDSPC1 = (sitesAll: ISite[]) => {
   let data = sitesAll.map((data:ISite) => data.route.map((data0:Children) => data0.children && data0.children.map((data1:Children) => [`/dashboard/sites/${data._id}/pages/${data0.href}/${data1.href}`,`/dashboard/sites/${data._id}/pages/${data0.href}/new`]))).flat(3).filter((data: any) => data !== null)
+  return [... new Set(data.map((data: string) => data))].map((data: string) => (data))
+}
+export const getSiteDSPC2 = (sitesAll: ISite[]) => {
+  let data = sitesAll.map((data:ISite) => data.route.map((data0:Children) => data0.children && data0.children.map((data1:Children) => data1.children && data1.children.map((data2:Children) => [`/dashboard/sites/${data._id}/pages/${data0.href}/${data1.href}/${data2.href}`,`/dashboard/sites/${data._id}/pages/${data0.href}/${data1.href}/new`])))).flat(4).filter((data: any) => data !== null)
   return [... new Set(data.map((data: string) => data))].map((data: string) => (data))
 }
 

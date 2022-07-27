@@ -35,8 +35,8 @@ import { useRouter } from 'next/router';
 
 import Swal from 'sweetalert2';
 import { graphQLClientS } from '../../swr/graphQLClient';
-import { CREATE_SITE } from '../../graphql';
-import { getURL } from '../../utils/function';
+import { ADD_CHILDREN_0, ADD_CHILDREN_1, ADD_CHILDREN_2, CREATE_SITE, UPDATE_CHILDREN_0, UPDATE_CHILDREN_1, UPDATE_CHILDREN_2 } from '../../graphql';
+import { getQuery, getURL } from '../../utils/function';
 import { ChildrenForm, SiteForm } from '../../interfaces/site';
 const { Option } = Select;
 
@@ -65,23 +65,48 @@ interface Props {
 }
 
 export const FormChildren: FC<Props> = ({ data, routes }) => {
-  console.log(data);
-  
   const [form] = Form.useForm();
   const { asPath, query, replace, push } = useRouter()
-  // const [image, setImage] = useState<UploadFile[]>(product.imageSrc)
-  const [route, setRoute] = useState()
+  const url = getQuery(asPath)
+  // console.log(getURL(asPath));
+  // console.log(url);
 
+  const [route, setRoute] = useState()
 
   const onChangeRoute = (value: any, selectedOptions: any) => {
     setRoute(selectedOptions.map((data: { label: string; }) => ({ name: data.label })));
   };
 
-
   const onFinish = async (values: any) => {
-    const data = { ...values, imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg"}
-    // const { prefix, ...dat } = data
-    console.log(data);
+    if (url.length === 7 && data.uid) {
+      const data = { ...values, imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg",children_uid_0: url[4],children_uid_1: url[5],children_uid_2: url[6]}
+      await graphQLClientS.request(UPDATE_CHILDREN_2, { _id: url[2], input: data }),
+      push(getURL(asPath))
+      
+    } else if (url.length === 7) {
+      const data = { ...values, imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg",children_uid_0: url[4],children_uid_1: url[5]}
+
+      await graphQLClientS.request(ADD_CHILDREN_2, { _id: url[2], input: data })
+      push(getURL(asPath))
+    } else if (url.length === 6 && data.uid) {
+      const data = { ...values, imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg",children_uid_0: url[4],children_uid_1: url[5]}
+      await graphQLClientS.request(UPDATE_CHILDREN_1, { _id: url[2], input: data }),
+      push(getURL(asPath))
+      
+    } else if (url.length === 6) {
+      const data = { ...values, imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg",children_uid_0: url[4],}
+
+      await graphQLClientS.request(ADD_CHILDREN_1, { _id: url[2], input: data })
+      push(getURL(asPath))
+    } else if (url.length === 5 && data.uid) {
+      const data = { ...values, imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg",children_uid_0: url[4],}
+      await graphQLClientS.request(UPDATE_CHILDREN_0, { _id: url[2], input: data }),
+      push(getURL(asPath))
+    } else if (url.length === 5) {
+      const data = { ...values, imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg"}
+      await graphQLClientS.request(ADD_CHILDREN_0, { _id: url[2], input: data })
+      push(getURL(asPath))
+    }
 
     // await graphQLClientS.request(CREATE_SITE, { input: dat })
     // Swal.fire({

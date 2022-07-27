@@ -48,16 +48,22 @@ export const SITES = gql`
             href
             icon
             description
+            imageSrc
+            imageAlt
             children {
               uid   
               name
               href
               description
+              imageSrc
+              imageAlt
               children {
                 uid   
                 name
                 href
                 description
+                imageSrc
+                imageAlt
               }
             }
           }

@@ -7,7 +7,7 @@ import { FormChildren } from "../../components/form/childrenForm"
 import { GridSection } from "../../components/grid/gridPages"
 import { ISite } from "../../interfaces/site"
 import { getQuery } from '../../utils/function';
-import { getChildrenDataForm, getSiteChildren1 } from "../../utils/getSiteByUrl"
+import { getChildren0DataForm, getSiteChildren1 } from "../../utils/getSiteByUrl"
 
 interface Pages {
   tree: DataNode[]
@@ -29,13 +29,13 @@ export const Children0: FC<Pages> = ({ sites, tree }) => {
         <main className='col-span-4'>
           <HeadingDashboard title='Sitios' url={asPath} />
           {
-            slug[slug.length-1] !== 'new'
+            slug[4] !== 'new'
             ?
             <GridSection data={getSiteChildren1(sites, asPath)}/>
             :
             null
           }
-          <FormChildren data={getChildrenDataForm(sites, asPath)} />
+          <FormChildren data={getChildren0DataForm(sites, asPath)} />
         </main>
       </div>
     </Main>

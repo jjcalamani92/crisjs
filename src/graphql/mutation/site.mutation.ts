@@ -24,6 +24,60 @@ export const REMOVE_SITE = gql`
   }
 `;
 
+export const ADD_CHILDREN_0 = gql`
+  mutation AddChildren0($_id:ID!, $input: AddChildren!) {
+    addChildren0(_id:$_id, input: $input) {
+			data{
+      title
+      }
+    }
+  }
+`;
+export const ADD_CHILDREN_1 = gql`
+  mutation AddChildren1($_id:ID!, $input: AddChildren!) {
+    addChildren1(_id:$_id, input: $input) {
+			data{
+      title
+      }
+    }
+  }
+`;
+export const ADD_CHILDREN_2 = gql`
+  mutation AddChildren2($_id:ID!, $input: AddChildren!) {
+    addChildren2(_id:$_id, input: $input) {
+			data{
+      title
+      }
+    }
+  }
+`;
+export const UPDATE_CHILDREN_0 = gql`
+  mutation UpdateChildren0($_id:ID!, $input: UpdateChildren!) {
+    updateChildren0(_id:$_id, input: $input) {
+			data{
+      title
+      }
+    }
+  }
+`;
+export const UPDATE_CHILDREN_1 = gql`
+  mutation UpdateChildren1($_id:ID!, $input: UpdateChildren!) {
+    updateChildren1(_id:$_id, input: $input) {
+			data{
+      title
+      }
+    }
+  }
+`;
+export const UPDATE_CHILDREN_2 = gql`
+  mutation UpdateChildren2($_id:ID!, $input: UpdateChildren!) {
+    updateChildren2(_id:$_id, input: $input) {
+			data{
+      title
+      }
+    }
+  }
+`;
 export const ADD_SECTION_0 = gql`
   mutation AddSection0($_id:ID!, $input: AddSectionInput0!) {
     addSection0(_id:$_id, input: $input) {
