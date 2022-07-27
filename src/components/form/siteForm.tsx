@@ -19,6 +19,13 @@ import React, { FC, useEffect, useState } from 'react';
 import 'antd/lib/form/style/index.css'
 import 'antd/lib/input/style/index.css'
 import 'antd/lib/select/style/index.css'
+import 'antd/lib/button/style/index.css'
+import 'antd/lib/cascader/style/index.css'
+import 'antd/lib/collapse/style/index.css'
+import 'antd/lib/auto-complete/style/index.css'
+import 'antd/lib/radio/style/index.css'
+import 'antd/lib/popover/style/index.css'
+import 'antd/lib/checkbox/style/index.css'
 // import 'antd/lib/options/style/index.css'
 
 import { Main } from '../component';

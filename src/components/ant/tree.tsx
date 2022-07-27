@@ -32,15 +32,6 @@ export const TreeAnt: FC<Props> = ({ tree }) => {
 
   return (
     <div>
-      {/* <div style={{ marginBottom: 16 }}>
-        showLine: <Switch checked={!!showLine} onChange={onSetShowLine} />
-        <br />
-        <br />
-        showIcon: <Switch checked={showIcon} onChange={setShowIcon} />
-        <br />
-        <br />
-        showLeafIcon: <Switch checked={showLeafIcon} onChange={onSetLeafIcon} />
-      </div> */}
       <Tree
         showLine={showLine}
         showIcon={showIcon}
