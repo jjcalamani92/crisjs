@@ -6,7 +6,8 @@ import { Heading, HeadingDashboard, Main } from "../../components/component"
 import { FormSite } from "../../components/form/siteForm"
 import { Grid } from "../../components/grid/grid"
 import { ISite } from "../../interfaces/site"
-import { getSiteDataForm } from "../../utils/getSiteByUrl"
+import { getURL } from "../../utils/function"
+import { getSiteDataForm, getSiteDS } from "../../utils/getSiteByUrl"
 
 interface Site {
   tree: DataNode[]
@@ -31,6 +32,8 @@ const data = [
 ]
 export const Site: FC<Site> = ({ sites, tree }) => {
   const { asPath, pathname, query } = useRouter()
+  const url = asPath.split('/')
+
   return (
     <Main>
       <div className='grid grid-cols-5 gap-3'>
@@ -40,7 +43,13 @@ export const Site: FC<Site> = ({ sites, tree }) => {
         </div>
         <main className='col-span-4'>
           <HeadingDashboard title='Sitios' url={asPath} />
-          <Grid data={data} url={asPath} />
+          {
+            url[url.length-1] === "new"
+            ?
+            null
+            :
+            <Grid data={data} url={asPath} />
+          }
           <FormSite data={getSiteDataForm(sites, query)} />
         </main>
       </div>

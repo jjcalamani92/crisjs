@@ -54,6 +54,22 @@ export const getSiteChildren = (sitesAll: ISite[], { slug }: ParsedUrlQuery| any
   return getSite(sitesAll, {slug}).route
 }
 
+export const getSiteDS = (sitesAll: ISite[]):string[] => {
+  return [...sitesAll.map((data:ISite) => `/dashboard/sites/${data._id}`), '/dashboard/sites/new']
+}
+export const getSiteDSP = (sitesAll: ISite[]):string[] => {
+  return sitesAll.map((data:ISite) => `/dashboard/sites/${data._id}/pages`)
+}
+export const getSiteDSPC0 = (sitesAll: ISite[]) => {
+  return sitesAll.map((data:ISite) => data.route.map((data0:Children) => `/dashboard/sites/${data._id}/pages/${data0.href}`)).flat(1)
+}
+export const getSiteDSPC1 = (sitesAll: ISite[]) => {
+  return sitesAll.map((data:ISite) => data.route.map((data0:Children) => data0.children && data0.children.map((data1:Children) => `/dashboard/sites/${data._id}/pages/${data0.href}/${data1.href}`))).flat(2).filter((data: any) => data !== null)
+}
+export const getSiteDS1 = (sitesAll: ISite[], { slug }: ParsedUrlQuery| any):string[] => {
+  return [...sitesAll.map((data:ISite) => `/dashboard/sites/${data._id}`), '/dashboard/sites/new']
+}
+
 export const getSiteChildren1 = (sitesAll: ISite[], asPath: string):Children[] => {
   return getSiteChildren(sitesAll, asPath)
 }

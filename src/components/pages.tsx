@@ -13,12 +13,14 @@ import { Site } from '../layouts/dashboard/sites';
 import { Route } from '../layouts/dashboard/route';
 import { Pages } from '../layouts/dashboard/page';
 import { getContentPage, getSiteByVne } from '../utils/getSiteByVne';
+import { getSiteDS, getSiteDSP, getSiteDSPC0, getSiteDSPC1 } from '../utils/getSiteByUrl';
 
 interface Page {
   sites: ISite[]
 }
 export const Page: FC<Page> = ({ sites }) => {
   const { asPath, query } = useRouter()
+console.log(getSiteDSPC1(sites));
 
   switch (asPath) {
     case '/':
@@ -38,11 +40,11 @@ export const Page: FC<Page> = ({ sites }) => {
       return <h1>Dashboard</h1>
     case '/dashboard/sites':
       return <Dashboard sites={sites} tree={getDataTree(sites)} />
-    case ['/dashboard/sites/62db50d161af9e4b89ba443e', "/dashboard/sites/62deb476f1afee95082d97c4", "/dashboard/sites/new", "/dashboard/sites/62dbf1074609d5227df4baef", "/dashboard/sites/62deb368604756cacb9d826d", "/dashboard/sites/62deb476f1afee95082d97c4"].find(url => url === asPath):
+    case getSiteDS(sites).find(url => url === asPath):
       return <Site sites={sites} tree={getDataTree(sites)} />
-    case ['/dashboard/sites/62db50d161af9e4b89ba443e/pages', "/dashboard/sites/62deb476f1afee95082d97c4", "/dashboard/sites/new", "/dashboard/sites/62dbf1074609d5227df4baef/pages", "/dashboard/sites/62deb368604756cacb9d826d", "/dashboard/sites/62deb476f1afee95082d97c4"].find(url => url === asPath):
+    case getSiteDSP(sites).find(url => url === asPath):
       return <Route sites={sites} tree={getDataTree(sites)} />
-    case ['/dashboard/sites/62db50d161af9e4b89ba443e/pages/home', '/dashboard/sites/62db50d161af9e4b89ba443e/pages/services', "/dashboard/sites/62deb476f1afee95082d97c4", "/dashboard/sites/new", "/dashboard/sites/62dbf1074609d5227df4baef/pages/ropa", "/dashboard/sites/62deb368604756cacb9d826d", "/dashboard/sites/62deb476f1afee95082d97c4"].find(url => url === asPath):
+    case getSiteDSPC0(sites).find(url => url === asPath):
       return <Pages sites={sites} tree={getDataTree(sites)} />
     default:
       return <Page404 />

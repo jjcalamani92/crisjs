@@ -5,7 +5,7 @@ import { TreeAnt } from "../../components/ant/tree"
 import { Heading, HeadingDashboard, Main } from "../../components/component"
 import { GridSection } from "../../components/grid/gridPages"
 import { ISite } from "../../interfaces/site"
-import { getSiteChildren } from "../../utils/getSiteByUrl"
+import { getSiteChildren, getSiteDS } from "../../utils/getSiteByUrl"
 
 interface Route {
   tree: DataNode[]
@@ -20,12 +20,10 @@ export const Route: FC<Route> = ({ sites, tree }) => {
         <div className='col-span-1'>
           <Heading title='Rutas' />
           <TreeAnt tree={tree} />
-
         </div>
         <main className='col-span-4'>
           <HeadingDashboard title='Páginas' url={asPath} />
           <GridSection data={getSiteChildren(sites, query)}/>
-          
         </main>
       </div>
     </Main>
