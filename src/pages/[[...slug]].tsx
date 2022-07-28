@@ -7,10 +7,16 @@ import { getPathsBySite } from '../utils/getSiteByVne'
 import { Layout } from '../layouts/layout';
 import { Page } from '../components/pages'
 import { getSiteByVne } from '../utils/getSiteByVne'
+import useSWR from 'swr'
+import request, { RequestDocument } from 'graphql-request'
 
 interface Props {
   sitesAll: ISite[]
 }
+
+const fetcher = (query: RequestDocument) => request(`${process.env.APIS_URL}/graphql`, query)
+
+
 
 const Home: FC<Props> = ({ sitesAll }) => {
   return (
@@ -35,7 +41,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { sitesAll } = await graphQLClientS.request(SITES)
   return {
     props: { sitesAll }, // will be passed to the page component as props
-    revalidate: 1,
+    revalidate: 10,
   }
 }
 export default Home

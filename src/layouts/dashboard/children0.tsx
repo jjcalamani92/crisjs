@@ -1,4 +1,5 @@
 import { DataNode } from "antd/lib/tree"
+import request, { RequestDocument } from "graphql-request"
 import { useRouter } from "next/router"
 import { FC } from "react"
 import useSWR from "swr"
@@ -6,8 +7,8 @@ import { TreeAnt } from "../../components/ant/tree"
 import { Heading, HeadingDashboard, Main } from "../../components/component"
 import { FormChildren } from "../../components/form/childrenForm"
 import { GridSection } from "../../components/grid/gridPages"
-import { CHILDREN_1 } from "../../graphql"
-import { ISite } from "../../interfaces/site"
+import { CHILDREN_1, SITES } from "../../graphql"
+import { Children, ISite } from "../../interfaces/site"
 import { getQuery } from '../../utils/function';
 import { getChildren0DataForm, getSiteChildren1, getSiteChildren0 } from '../../utils/getSiteByUrl';
 
@@ -16,15 +17,20 @@ interface Pages {
   sites: ISite[]
 }
 
+// const fetcher = (query: RequestDocument) => request(`${process.env.APIS_URL}/graphql`, query)
+
+
 export const Children0: FC<Pages> = ({ sites, tree }) => {
   const { asPath, pathname, query } = useRouter()
   const slug = getQuery(asPath)
-  const { data, error, isValidating } = useSWR([CHILDREN_1, {_id: process.env.API_SITE}])
-  if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+  // const { data, error, isValidating } = useSWR([CHILDREN_1, {_id: process.env.API_SITE}])
+  // // const {data, error, isValidating} = useSWR(SITES, fetcher)
+  // if (error) return <div>failed to load</div>
+  // if (!data) return <div>loading...</div>
+  // const c0 = data.site.route.map((data:Children) => data.children)
+  // console.log(c0);
   // console.log(getSiteChildren1(sites, asPath));
-  console.log(data.site.route);
-  console.log(getSiteChildren0(sites, asPath));
+  // console.log(getSiteChildren0(sites, asPath));
   
   return (
     <Main>
