@@ -69,7 +69,7 @@ export const FormChildren: FC<Props> = ({ data, routes }) => {
   const { asPath, query, replace, push } = useRouter()
   const url = getQuery(asPath)
   // console.log(getURL(asPath));
-  // console.log(url);
+  console.log(asPath);
 
   const [route, setRoute] = useState()
 
@@ -81,31 +81,31 @@ export const FormChildren: FC<Props> = ({ data, routes }) => {
     if (url.length === 7 && data.uid) {
       const data = { ...values, imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg",children_uid_0: url[4],children_uid_1: url[5],children_uid_2: url[6]}
       await graphQLClientS.request(UPDATE_CHILDREN_2, { _id: url[2], input: data }),
-      push(getURL(asPath))
+      replace(getURL(asPath))
       
     } else if (url.length === 7) {
       const data = { ...values, imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg",children_uid_0: url[4],children_uid_1: url[5]}
 
       await graphQLClientS.request(ADD_CHILDREN_2, { _id: url[2], input: data })
-      push(getURL(asPath))
+      replace(getURL(asPath))
     } else if (url.length === 6 && data.uid) {
       const data = { ...values, imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg",children_uid_0: url[4],children_uid_1: url[5]}
       await graphQLClientS.request(UPDATE_CHILDREN_1, { _id: url[2], input: data }),
-      push(getURL(asPath))
+      replace(getURL(asPath))
       
     } else if (url.length === 6) {
       const data = { ...values, imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg",children_uid_0: url[4],}
 
       await graphQLClientS.request(ADD_CHILDREN_1, { _id: url[2], input: data })
-      push(getURL(asPath))
+      replace(getURL(asPath))
     } else if (url.length === 5 && data.uid) {
       const data = { ...values, imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg",children_uid_0: url[4],}
       await graphQLClientS.request(UPDATE_CHILDREN_0, { _id: url[2], input: data }),
-      push(getURL(asPath))
+      replace(getURL(asPath))
     } else if (url.length === 5) {
       const data = { ...values, imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg"}
       await graphQLClientS.request(ADD_CHILDREN_0, { _id: url[2], input: data })
-      push(getURL(asPath))
+      replace(getURL(asPath))
     }
 
     // await graphQLClientS.request(CREATE_SITE, { input: dat })
