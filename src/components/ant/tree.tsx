@@ -5,13 +5,17 @@ import React, { FC, useState } from 'react';
 // import 'antd/dist/antd.css'
 import 'antd/lib/tree/style/index.css'
 import { useRouter } from 'next/router';
+import { Key } from 'antd/lib/table/interface';
 
 interface Props {
   tree: DataNode[]
 }
 export const TreeAnt: FC<Props> = ({ tree }) => {
-  const { push } = useRouter()
-
+  const { push, asPath } = useRouter()
+  console.log(tree);
+  const slug:any = asPath
+  console.log(asPath);
+  
   const [showLine, setShowLine] = useState<boolean | { showLeafIcon: boolean }>(true);
   const [showIcon, setShowIcon] = useState<boolean>(false);
   const [showLeafIcon, setShowLeafIcon] = useState<boolean>(true);
@@ -35,7 +39,7 @@ export const TreeAnt: FC<Props> = ({ tree }) => {
       <Tree
         showLine={showLine}
         showIcon={showIcon}
-        defaultExpandedKeys={['0-0-0']}
+        defaultExpandedKeys={[asPath]}
         onSelect={onSelect}
         treeData={tree}
       />
