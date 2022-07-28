@@ -50,7 +50,7 @@ const CardSite: FC<CardSite> = ({ data }) => {
     <div className="shadow-lg p-2 ">
       <Link href={`${asPath}/${_id}`}>
         <a>
-          <div className="w-full bg-white rounded-sm overflow-hidden leading-none">
+          <div className="w-full bg-white rounded-sm">
             <Image
               src={imageSrc}
               alt={imageAlt}

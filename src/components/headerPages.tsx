@@ -124,7 +124,7 @@ export const Header: FC<Header> = ({ data }) => {
               <MenuIcon className="h-6 w-6" aria-hidden="true" />
             </Popover.Button>
           </div>
-          <Popover.Group as="nav" className="hidden md:flex space-x-10">
+          <Popover.Group as="nav" className="hidden md:flex space-x-10  z-10">
             <Popover className="relative">
               {({ open }) => (
                 <>
@@ -297,7 +297,7 @@ export const Header: FC<Header> = ({ data }) => {
         leaveFrom="opacity-100 scale-100"
         leaveTo="opacity-0 scale-95"
       >
-        <Popover.Panel focus className="top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden absolute">
+        <Popover.Panel focus className="z-10 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden absolute">
           <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
             <div className="pt-5 pb-6 px-5">
               <div className="flex items-center justify-between">

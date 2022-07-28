@@ -68,8 +68,6 @@ export const FormChildren: FC<Props> = ({ data, routes }) => {
   const [form] = Form.useForm();
   const { asPath, query, replace, push } = useRouter()
   const url = getQuery(asPath)
-  // console.log(getURL(asPath));
-  console.log(asPath);
 
   const [route, setRoute] = useState()
 

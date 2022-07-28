@@ -1,7 +1,6 @@
 export interface ISite {
   _id: string
   data: Data
-  // routes: Route
   route: Children[]
   client: string
   type: string
