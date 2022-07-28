@@ -130,6 +130,34 @@ export const SITE = gql`
     }
   }
 `;
+export const CHILDREN_0 = gql`
+  query Site($_id: ID!) {
+    site(_id: $_id) {
+      route {
+        name
+        href
+        description
+        imageSrc
+        imageAlt
+      }
+    }
+  }
+`;
+export const CHILDREN_1 = gql`
+  query Site($_id: ID!) {
+    site(_id: $_id) {
+      route {
+        children {
+        name
+        href
+        description
+        imageSrc
+        imageAlt
+      }
+      }
+    }
+  }
+`;
 export const SITE_PATHS = gql`
   query Site($_id: ID!) {
     site(_id: $_id) {
