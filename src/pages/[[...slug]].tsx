@@ -7,7 +7,6 @@ import { getPathsBySite } from '../utils/getSiteByVne'
 import { Layout } from '../layouts/layout';
 import { Page } from '../components/pages'
 import { getSiteByVne } from '../utils/getSiteByVne'
-import useSWR from 'swr'
 import request, { RequestDocument } from 'graphql-request'
 
 interface Props {

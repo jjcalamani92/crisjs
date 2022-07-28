@@ -41,13 +41,13 @@ export const Children0: FC<Pages> = ({ sites, tree }) => {
         </div>
         <main className='col-span-4'>
           <HeadingDashboard title='Sitios' url={asPath} />
-          {/* {
+          {
             slug[4] !== 'new' && getSiteChildren0(sites, asPath).length !== 0
             ?
             <GridSection data={getSiteChildren1(sites, asPath)}/>
             :
             null
-          } */}
+          }
           <FormChildren data={getChildren0DataForm(sites, asPath)} />
         </main>
       </div>
