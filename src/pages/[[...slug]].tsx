@@ -35,7 +35,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { sitesAll } = await graphQLClientS.request(SITES)
   return {
     props: { sitesAll }, // will be passed to the page component as props
-    revalidate: 10,
+    revalidate: 1,
   }
 }
 export default Home
