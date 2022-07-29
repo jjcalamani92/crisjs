@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import '../styles/antd.css'
+import '../styles/antd.minify.css'
 
 import type { AppProps } from 'next/app'
 import { SWRConfig } from 'swr'
