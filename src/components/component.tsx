@@ -5,6 +5,8 @@ import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, XIcon } from "@he
 import Router, { useRouter } from "next/router";
 import { MenuDropdown } from "./headlessui/menu";
 import { Icon } from "./icon";
+import { ModalComponent } from "./ant/modal";
+import { ModalH } from "./headlessui/modal";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -119,10 +121,18 @@ function classNames(...classes: string[]) {
 }
 export const HeadingDashboard: FC<HeadingDashboard> = ({ title, url }) => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+  const [modal, setModal] = useState(false)
+  const [open, setOpen] = useState(false)
   const { push, pathname, query } = useRouter();
 
   const redirect = (href: string) => {
     console.log('click', href);
+    switch (href) {
+      case 'new':
+        return setOpen(true)
+      // case 'updated':
+      //   return setModal(true)
+    }
   }
   return (
     <>
@@ -267,6 +277,8 @@ export const HeadingDashboard: FC<HeadingDashboard> = ({ title, url }) => {
                 </Menu.Items>
               </Transition>
             </Menu>
+            <ModalComponent modal={modal} setModal={setModal} />
+            <ModalH open={open} setOpen={setOpen} />
           </div>
         </div>
       </Main>
