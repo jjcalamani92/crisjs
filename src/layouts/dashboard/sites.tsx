@@ -5,12 +5,10 @@ import { TreeAnt } from "../../components/ant/tree"
 import { Heading, HeadingDashboard, Main } from "../../components/component"
 import { FormSite } from "../../components/form/siteForm"
 import { Grid } from "../../components/grid/grid"
+import { GridSite } from "../../components/grid/gridSite"
 import { ISite } from "../../interfaces/site"
-import { getURL } from "../../utils/function"
-import { getSiteDataForm, getSiteDS } from "../../utils/getSiteByUrl"
 
 interface Site {
-  tree: DataNode[]
   sites: ISite[]
 }
 const data = [
@@ -30,29 +28,22 @@ const data = [
     imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg"
   },
 ]
-export const Site: FC<Site> = ({ sites, tree }) => {
+export const Sites: FC<Site> = ({ sites }) => {
   const { asPath, pathname, query } = useRouter()
   const url = asPath.split('/')
 
   return (
-    <Main>
-      <div className='grid grid-cols-5 gap-3'>
-        <div className='col-span-1'>
-          <Heading title='Rutas' />
-          <TreeAnt tree={tree} />
-        </div>
-        <main className='col-span-4'>
-          <HeadingDashboard title='Sitios' url={asPath} />
-          {
-            url[url.length-1] === "new"
-            ?
-            null
-            :
-            <Grid data={data} url={asPath} />
-          }
-          <FormSite data={getSiteDataForm(sites, asPath)} />
-        </main>
-      </div>
-    </Main>
+    <>
+      <HeadingDashboard title='Sitios' url={asPath} />
+      {/* {
+        url[url.length - 1] === "new"
+          ?
+          null
+          :
+          <Grid data={data} url={asPath} />
+      } */}
+      {/* <FormSite data={getSiteDataForm(sites, asPath)} /> */}
+      <GridSite data={sites} />
+    </>
   )
 }

@@ -12,9 +12,7 @@ interface Props {
 }
 export const TreeAnt: FC<Props> = ({ tree }) => {
   const { push, asPath } = useRouter()
-  console.log(tree);
-  const slug:any = asPath
-  console.log(asPath);
+
   
   const [showLine, setShowLine] = useState<boolean | { showLeafIcon: boolean }>(true);
   const [showIcon, setShowIcon] = useState<boolean>(false);

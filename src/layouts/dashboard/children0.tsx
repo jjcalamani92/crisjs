@@ -14,36 +14,28 @@ import { getSiteChildren1 } from "../../utils/functionV2"
 import { getChildren0DataForm, getSiteChildren0 } from '../../utils/getSiteByUrl';
 
 interface Pages {
-  tree: DataNode[]
   sites: ISite[]
 }
 
 // const fetcher = (query: RequestDocument) => request(`${process.env.APIS_URL}/graphql`, query)
 
 
-export const Children0: FC<Pages> = ({ sites, tree }) => {
+export const Children0: FC<Pages> = ({ sites }) => {
   const { asPath, pathname, query } = useRouter()
   const slug = getQuery(asPath)
 
   return (
-    <Main>
-      <div className='grid grid-cols-5 gap-3'>
-        <div className='col-span-1'>
-          <Heading title='Rutas' />
-          <TreeAnt tree={tree} />
-        </div>
-        <main className='col-span-4'>
-          <HeadingDashboard title='Sitios' url={asPath} />
-          {
-            slug[4] !== 'new' && getSiteChildren0(sites, asPath).length !== 0
-            ?
-            <GridSection data={getSiteChildren1(sites, asPath)}/>
-            :
-            null
-          }
-          <FormChildren data={getChildren0DataForm(sites, asPath)} />
-        </main>
-      </div>
-    </Main>
+    <>
+      <HeadingDashboard title='Sitios' url={asPath} />
+      {
+        slug[4] !== 'new' && getSiteChildren0(sites, asPath).length !== 0
+          ?
+          <GridSection data={getSiteChildren1(sites, asPath)} />
+          :
+          null
+      }
+      <FormChildren data={getChildren0DataForm(sites, asPath)} />
+
+    </>
   )
 }

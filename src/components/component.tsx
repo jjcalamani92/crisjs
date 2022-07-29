@@ -3,6 +3,8 @@ import { FC, Fragment, useState } from "react";
 import { Menu, Transition, Dialog, Disclosure } from '@headlessui/react';
 import { ChevronDownIcon, FilterIcon, MinusSmIcon, PlusSmIcon, XIcon } from "@heroicons/react/solid";
 import Router, { useRouter } from "next/router";
+import { MenuDropdown } from "./headlessui/menu";
+import { Icon } from "./icon";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -50,7 +52,11 @@ export const HeadingPrimary: FC<HeadingPrimary> = ({ title }) => {
     </Main>
   )
 }
+const form = [
+  { name: 'Created Site', href: 'new', current: true },
+  { name: 'Updated Site', href: 'updated', current: true },
 
+]
 
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
@@ -115,8 +121,8 @@ export const HeadingDashboard: FC<HeadingDashboard> = ({ title, url }) => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const { push, pathname, query } = useRouter();
 
-  const redirect = () => {
-    push(`${url}/new`)
+  const redirect = (href: string) => {
+    console.log('click', href);
   }
   return (
     <>
@@ -220,20 +226,15 @@ export const HeadingDashboard: FC<HeadingDashboard> = ({ title, url }) => {
       </Transition.Root>
 
       <Main>
-        <div className="z-10 flex items-baseline justify-between py-6">
+        <div className="flex items-baseline justify-between py-6">
           <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">{title}</h1>
 
-          <div className="grid grid-cols-1">
-            {/* <Menu as="div" className="relative inline-block text-left">
-              <div>
-                <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                  Sort
-                  <ChevronDownIcon
-                    className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                    aria-hidden="true"
-                  />
+          <div className="flex">
+            
+            <Menu as="div" className="relative z-10 text-left flex w-auto">
+                <Menu.Button className=" justify-center  text-sm font-medium text-gray-700 hover:text-gray-900">
+                  <Icon icon="dots-vertical"/>
                 </Menu.Button>
-              </div>
 
               <Transition
                 as={Fragment}
@@ -244,55 +245,28 @@ export const HeadingDashboard: FC<HeadingDashboard> = ({ title, url }) => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className="origin-top-right absolute top-10 right-0 mt-2 w-40 rounded-md shadow-2xl bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
-                    {sortOptions.map((option) => (
-                      <Menu.Item key={option.name}>
+                    {form.map((data, i) => (
+                      <Menu.Item key={i}>
                         {({ active }) => (
-                          <a
-                            href={option.href}
+                          <div
+                            onClick={() => redirect(data.href)}
                             className={classNames(
-                              option.current ? 'font-medium text-gray-900' : 'text-gray-500',
+                              data.current ? 'font-medium text-gray-900' : 'text-gray-500',
                               active ? 'bg-gray-100' : '',
                               'block px-4 py-2 text-sm'
                             )}
                           >
-                            {option.name}
-                          </a>
+                            {data.name}
+                          </div>
                         )}
                       </Menu.Item>
                     ))}
                   </div>
                 </Menu.Items>
               </Transition>
-            </Menu> */}
-
-            {/* <button type="button" className="p-2 text-gray-400 hover:text-gray-500">
-                <span className="sr-only">View grid</span>
-                <ViewGridIcon className="w-5 h-5" aria-hidden="true" />
-              </button> */}
-            {/* <button
-              type="button"
-              className="p-2 text-gray-400 hover:text-gray-500 lg:hidden"
-              onClick={() => setMobileFiltersOpen(true)}
-            >
-              {/* <span className="sr-only">Filters</span> 
-              <FilterIcon className="w-5 h-5" aria-hidden="true" />
-            </button> */}
-            <button className="transition duration-150 ease-in-out hover:bg-orange-600 focus:outline-none border bg-orange-500 rounded text-white px-8 
-            py-2 text-md sm:text-sm"
-              onClick={() => redirect()}
-            >
-              <div className="hidden sm:flex">
-                Crear
-              </div>
-              {/* <FontAwesomeIcon
-                className="sm:hidden"
-                icon={faCirclePlus}
-              /> */}
-            </button>
-            {/* <Button content='nuevo' click={() => redirect()} /> */}
-
+            </Menu>
           </div>
         </div>
       </Main>

@@ -124,7 +124,7 @@ export const Header: FC<Header> = ({ data }) => {
               <MenuIcon className="h-6 w-6" aria-hidden="true" />
             </Popover.Button>
           </div>
-          <Popover.Group as="nav" className="hidden md:flex space-x-10  z-10">
+          <Popover.Group as="nav" className="hidden md:flex space-x-10  z-20">
             <Popover className="relative">
               {({ open }) => (
                 <>
@@ -153,7 +153,7 @@ export const Header: FC<Header> = ({ data }) => {
                     leaveFrom="opacity-100 translate-y-0"
                     leaveTo="opacity-0 translate-y-1"
                   >
-                    <Popover.Panel className="absolute z-100 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
+                    <Popover.Panel className="absolute z-20 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                           {services.children.map((item: Children) => (
@@ -229,7 +229,7 @@ export const Header: FC<Header> = ({ data }) => {
                     leaveFrom="opacity-100 translate-y-0"
                     leaveTo="opacity-0 translate-y-1"
                   >
-                    <Popover.Panel className="absolute z-100 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0 ">
+                    <Popover.Panel className="absolute z-20 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0 ">
                       <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                         <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                           {more.children.map((data: Children, i: number) => (
@@ -297,7 +297,7 @@ export const Header: FC<Header> = ({ data }) => {
         leaveFrom="opacity-100 scale-100"
         leaveTo="opacity-0 scale-95"
       >
-        <Popover.Panel focus className="z-10 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden absolute">
+        <Popover.Panel focus className="z-20 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden absolute">
           <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
             <div className="pt-5 pb-6 px-5">
               <div className="flex items-center justify-between">
