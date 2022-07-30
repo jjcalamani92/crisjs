@@ -10,20 +10,21 @@ import { FAQComponent } from './faqs';
 import { Brand } from './brands';
 import { Blogs } from './blogs';
 import { Site } from '../layouts/dashboard/site';
-import { Route } from '../layouts/dashboard/route';
+import { Pages } from '../layouts/dashboard/pages';
 import { Children0 } from '../layouts/dashboard/children0';
 import { getContentPage, getSiteByVne } from '../utils/getSiteByVne';
 import { Children1 } from '../layouts/dashboard/children1';
 import { Children2 } from '../layouts/dashboard/children2';
 import { getSiteDS, getSiteDSP, getSiteDSPC0, getSiteDSPC1, getSiteDSPC2 } from '../utils/functionV2';
-import { GridSite } from './grid/gridSite';
 import { Sites } from '../layouts/dashboard/sites';
 
-interface Page {
+interface Routes {
   sites: ISite[]
 }
-export const Page: FC<Page> = ({ sites }) => {
+export const Routes: FC<Routes> = ({ sites }) => {
   const { asPath, query } = useRouter()
+  console.log(getSiteDS(sites, asPath));
+  
   switch (asPath) {
     case '/':
       return (
@@ -45,7 +46,7 @@ export const Page: FC<Page> = ({ sites }) => {
     case getSiteDS(sites, asPath):  // dashboard/sites/[id] || dashboard/sites/new
       return <Dashboard tree={getDataTree(sites)} > <Site sites={sites} /> </Dashboard>
     case getSiteDSP(sites, asPath): // dashboard/sites/[id]/pages
-      return <Dashboard tree={getDataTree(sites)} > <Route sites={sites} /> </Dashboard>
+      return <Dashboard tree={getDataTree(sites)} > <Pages sites={sites} /> </Dashboard>
     case getSiteDSPC0(sites, asPath): // dashboard/sites/
       return <Dashboard tree={getDataTree(sites)} > <Children0 sites={sites} /> </Dashboard>
     case getSiteDSPC1(sites, asPath): // dashboard/sites/

@@ -1,5 +1,4 @@
 import { Children, ChildrenForm, ISite, SiteForm } from "../interfaces/site";
-import { ParsedUrlQuery } from 'querystring';
 import { getQuery } from "./function";
 
 export const getSite = (sitesAll: ISite[], asPath: string): ISite => {

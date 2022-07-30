@@ -5,65 +5,49 @@ import { ChangeEvent, FC } from 'react';
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { CREATE_SITE, UPDATE_SITE } from "../../graphql";
-import { ISite } from "../../interfaces/site";
+import { ISite, SiteForm } from "../../interfaces/site";
 import { graphQLClientS } from "../../swr/graphQLClient";
 
-
-interface FormData {
-  title: string;
-  domain: string;
-  logo: string;
-  icon: string;
-  imageSrc: string;
-  imageAlt: string;
-  numberPhone: number;
-  address: string;
-  location: string;
-  description: string;
-  type: string;
-  client: string;
-}
-
 interface Props {
-  site: any
-  url: string
+  site: SiteForm
+  url?: string
 }
 
 export const FormSite: FC<Props> = ({ site, url }) => {
+  console.log(site);
   
   const {replace, push} = useRouter()
 
 
-  const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<FormData>({
-    defaultValues: { ...site.data, type:site.type, client: site.client}
+  const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<SiteForm>({
+    defaultValues: { ...site, type:site.type, client: site.client}
   })
 
+  const onSubmit = async (form: SiteForm) => {
+    console.log(form);
+    
+    // if (site._id) {
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'success',
+    //     title: 'Sitio Actualizado',
+    //     showConfirmButton: false,
+    //     timer: 1500
+    //   })
+    //   await graphQLClientS.request(UPDATE_SITE, {_id: site._id, input: form })
+    //   replace(`/${url}`)
 
-  const onSubmit = async (form: FormData) => {
-
-    if (site._id) {
-      // console.log('formulario',form)
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Sitio Actualizado',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      await graphQLClientS.request(UPDATE_SITE, {_id: site._id, input: form })
-      replace(`/${url}`)
-
-    } else {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Sitio Creado',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      await graphQLClientS.request(CREATE_SITE, { input: form })
-      push(`${url}`)
-    }
+    // } else {
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'success',
+    //     title: 'Sitio Creado',
+    //     showConfirmButton: false,
+    //     timer: 1500
+    //   })
+    //   await graphQLClientS.request(CREATE_SITE, { input: form })
+    //   push(`${url}`)
+    // }
   }
 
   const onFileSelected = async ({ target }: ChangeEvent<HTMLInputElement>) => {
@@ -84,17 +68,13 @@ export const FormSite: FC<Props> = ({ site, url }) => {
   }
 
   return (
-    <>
-      <div className="bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl mx-auto mb-3 lg:max-w-none">
-            
+
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="sm:shadow sm:rounded-md sm:overflow-hidden">
-                <div className="sm:p-6">
+              <div className="sm:overflow-hidden">
+                <div className="">
 
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-6">
-                    <div className="col-span-2">
+                    <div className="col-span-3">
                       <div>
                         <label htmlFor="name" className="block text-xs md:text-sm font-medium text-gray-700">
                           Nombre
@@ -241,7 +221,7 @@ export const FormSite: FC<Props> = ({ site, url }) => {
                       </div>       
                     </div>
 
-                    <div className="col-span-1">
+                    <div className="col-span-3">
                       <label className="block text-xs md:text-sm font-medium text-gray-700">Logo</label>
                       <div className="mt-1 flex justify-center p-5 border-2 border-gray-300 border-dashed rounded-md">
                         <div className="space-y-1 text-center">
@@ -296,10 +276,6 @@ export const FormSite: FC<Props> = ({ site, url }) => {
                 </div>
               </div>
             </form>
-          </div>
-        </div>
-      </div>
-      
-    </>
+          
   )
 }

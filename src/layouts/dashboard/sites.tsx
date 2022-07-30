@@ -34,7 +34,7 @@ export const Sites: FC<Site> = ({ sites }) => {
 
   return (
     <>
-      <HeadingDashboard title='Sitios' url={asPath} />
+      <HeadingDashboard title='Sitios'/>
       {/* {
         url[url.length - 1] === "new"
           ?

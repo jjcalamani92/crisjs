@@ -5,7 +5,7 @@ import { ISite } from '../interfaces/site'
 import { graphQLClientS } from '../swr/graphQLClient'
 import { getPathsBySite } from '../utils/getSiteByVne'
 import { Layout } from '../layouts/layout';
-import { Page } from '../components/pages'
+import { Routes } from '../components/routes'
 import { getSiteByVne } from '../utils/getSiteByVne'
 import request, { RequestDocument } from 'graphql-request'
 
@@ -23,7 +23,7 @@ const Home: FC<Props> = ({ sitesAll }) => {
         title='crisjs'
         site={getSiteByVne(sitesAll)}
       >
-        <Page sites={sitesAll} />
+        <Routes sites={sitesAll} />
       </Layout>
   )
 }

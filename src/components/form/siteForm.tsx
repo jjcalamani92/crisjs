@@ -160,17 +160,17 @@ export const FormSite: FC<Props> = ({ data, routes }) => {
   );
 
   return (
-    <Main>
+    // <Main>
       <Form
         form={form}
         name="register"
         onFinish={onFinish}
         initialValues={data}
         scrollToFirstError
-        className='p-6'
+        // className='p-6'
       >
 
-        <div className=" sm:p-6 sm:shadow sm:rounded-md sm:overflow-hidden">
+        <div className=" sm:rounded-md sm:overflow-hidden">
           <div className="grid grid-cols-12 gap-3 sm:gap-4 col-span-2">
 
             <Form.Item
@@ -353,6 +353,6 @@ export const FormSite: FC<Props> = ({ data, routes }) => {
           </Form.Item>
         </div>
       </Form>
-    </Main>
+    // </Main>
   );
 };

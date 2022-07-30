@@ -29,3 +29,6 @@ export const getURL = (pathname: string) => {
 export const getQuery = (asPath: string) => {
 	return asPath.slice(1).split('/')
 }
+export const classNames = (...classes: string[]) => {
+  return classes.filter(Boolean).join(' ')
+}

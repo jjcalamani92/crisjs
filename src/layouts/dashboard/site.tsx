@@ -1,13 +1,12 @@
 import { DataNode } from "antd/lib/tree"
 import { useRouter } from "next/router"
-import { FC } from "react"
-import { TreeAnt } from "../../components/ant/tree"
+import { FC, useState } from "react"
 import { Heading, HeadingDashboard, Main } from "../../components/component"
+
 import { FormSite } from "../../components/form/siteForm"
 import { Grid } from "../../components/grid/grid"
 import { ISite } from "../../interfaces/site"
-import { getURL } from "../../utils/function"
-import { getSiteDataForm, getSiteDS } from "../../utils/getSiteByUrl"
+import { getSiteDataForm } from "../../utils/functionV2"
 
 interface Site {
   sites: ISite[]
@@ -31,11 +30,13 @@ const data = [
 ]
 export const Site: FC<Site> = ({ sites }) => {
   const { asPath, pathname, query } = useRouter()
+  const [open, setOpen] = useState(false)
+
   const url = asPath.split('/')
 
   return (
     <>
-      <HeadingDashboard title='Sitios' url={asPath} />
+      <HeadingDashboard title='Sitios'/>
       {
         url[url.length - 1] === "new"
           ?
@@ -43,7 +44,11 @@ export const Site: FC<Site> = ({ sites }) => {
           :
           <Grid data={data} url={asPath} />
       }
-      <FormSite data={getSiteDataForm(sites, asPath)} />
+      {/* <ModalH open={open} setOpen={setOpen} >
+        {/* <FormSite site={getSiteDataForm(sites, asPath)} /> 
+      </ModalH> */}
+        <FormSite data={getSiteDataForm(sites, asPath)} /> 
+
 
     </>
   )

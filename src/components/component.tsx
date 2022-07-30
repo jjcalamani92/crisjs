@@ -7,6 +7,7 @@ import { MenuDropdown } from "./headlessui/menu";
 import { Icon } from "./icon";
 import { ModalComponent } from "./ant/modal";
 import { ModalH } from "./headlessui/modal";
+import { Dropdowns } from "./dropdowns";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -112,24 +113,19 @@ const filters = [
   },
 ]
 
-interface HeadingDashboard {
+interface HeadingDashboard0 {
   title: string;
   url: string
+  open?: boolean
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
-export const HeadingDashboard: FC<HeadingDashboard> = ({ title, url }) => {
+export const HeadingDashboard0: FC<HeadingDashboard0> = ({ title, url, open, setOpen }) => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
-  const [modal, setModal] = useState(false)
-  const [open, setOpen] = useState(false)
-  const { push, pathname, query } = useRouter();
-
-  const redirect = (href: string) => {
+  const onClick = (href: string) => {
     console.log('click', href);
     switch (href) {
       case 'new':
-        return setOpen(true)
+        return setOpen!(true)
       // case 'updated':
       //   return setModal(true)
     }
@@ -238,10 +234,10 @@ export const HeadingDashboard: FC<HeadingDashboard> = ({ title, url }) => {
       <Main>
         <div className="flex items-baseline justify-between py-6">
           <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">{title}</h1>
-
           <div className="flex">
-            
-            <Menu as="div" className="relative z-10 text-left flex w-auto">
+            {/* <Button  content='nuevo' click={() => onClick()} /> */}
+            {/* <Dropdowns /> */}
+            {/* <Menu as="div" className="relative z-10 text-left flex w-auto">
                 <Menu.Button className=" justify-center  text-sm font-medium text-gray-700 hover:text-gray-900">
                   <Icon icon="dots-vertical"/>
                 </Menu.Button>
@@ -276,9 +272,36 @@ export const HeadingDashboard: FC<HeadingDashboard> = ({ title, url }) => {
                   </div>
                 </Menu.Items>
               </Transition>
-            </Menu>
-            <ModalComponent modal={modal} setModal={setModal} />
-            <ModalH open={open} setOpen={setOpen} />
+            </Menu> */}
+            {/* <ModalComponent modal={modal} setModal={setModal} /> */}
+          </div>
+        </div>
+      </Main>
+    </>
+  )
+}
+
+interface HeadingDashboard {
+  title: string;
+}
+
+export const HeadingDashboard: FC<HeadingDashboard> = ({ title}) => {
+  const { asPath , push } = useRouter()
+  console.log(asPath);
+  
+  const clickNew = () => { 
+    push(`${asPath}/new`)
+    // console.log('click');
+    
+  }
+  return (
+    <>
+      <Main>
+        <div className="flex items-baseline justify-between py-6">
+          <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">{title}</h1>
+          <div className="flex">
+            <Button  content='nuevo' click={() => clickNew()} />
+
           </div>
         </div>
       </Main>
@@ -334,4 +357,8 @@ export const Heading: FC<Heading> = ({ title }) => {
       </div>
     </Main>
   )
+}
+
+function clickNew(): void {
+  throw new Error("Function not implemented.");
 }

@@ -53,14 +53,14 @@ export const getSiteDSPC2 = (sitesAll: ISite[], asPath:string) => {
 export const getSiteDataForm = (
   sitesAll: ISite[],
   asPath: string
-): SiteForm => {
+)=> {
   const slug = getQuery(asPath)
 
   let data: SiteForm;
-  if (slug[3] === "new") {
+  if (slug[2] === "new") {
     data = {
-      title: "dominio",
-      domain: "dominio.com",
+      title: "academia eureka",
+      domain: "academiaeureka.com",
       logo: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg",
       icon: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg",
       imageSrc:
