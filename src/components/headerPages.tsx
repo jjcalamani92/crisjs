@@ -23,8 +23,6 @@ import { ChevronDownIcon } from '@heroicons/react/solid'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Children } from '../interfaces/site';
-import parse, { attributesToProps } from 'html-react-parser';
-import { Interweave, Markup } from 'interweave';
 import { Icon } from './icon'
 import { Nav } from './nav'
 
