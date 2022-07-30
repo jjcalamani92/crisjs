@@ -19,7 +19,7 @@ export const Children2: FC<Pages> = ({ sites }) => {
 
   return (
     <>
-      <HeadingDashboard title='Sitios' url={asPath} />
+      <HeadingDashboard title='Sitios'/>
       {
         slug[6] !== 'new' && getSiteChildren2(sites, asPath).length !== 0
           ?

@@ -21,7 +21,7 @@ export const Children1: FC<Pages> = ({ sites }) => {
 
   return (
     <>
-      <HeadingDashboard title='Sitios' url={asPath} />
+      <HeadingDashboard title='Sitios' />
       {
         slug[5] !== 'new'
           ?
