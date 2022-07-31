@@ -56,16 +56,16 @@ export const CardSection: FC<CardSection> = ({ data }) => {
           await graphQLClientS.request(DELETE_CHILDREN_1, { _id: url[2], input: { 'children_uid_0': url[4], 'children_uid_1': uid } })
           push(`${asPath}`)
         } else if (url.length === 6) {
-          await graphQLClientS.request(DELETE_CHILDREN_2, { _id: query.id, input: { 'children_uid_0': url[4], 'children_uid_1': url[5], 'children_uid_2': uid } })
+          await graphQLClientS.request(DELETE_CHILDREN_2, { _id: url[2], input: { 'children_uid_0': url[4], 'children_uid_1': url[5], 'children_uid_2': uid } })
           push(`${asPath}`)
         } else if (url.length === 7) {
-          await graphQLClientS.request(DELETE_CHILDREN_3, { _id: query.id, input: { 'children_uid_0': url[4], 'children_uid_1': url[5], 'children_uid_2': url[6], 'children_uid_3': uid } })
+          await graphQLClientS.request(DELETE_CHILDREN_3, { _id:url[2], input: { 'children_uid_0': url[4], 'children_uid_1': url[5], 'children_uid_2': url[6], 'children_uid_3': uid } })
           push(`${asPath}`)
         } else if (url.length === 8) {
-          await graphQLClientS.request(DELETE_CHILDREN_4, { _id: query.id, input: { 'children_uid_0': url[4], 'children_uid_1': url[5], 'children_uid_2': url[6], 'children_uid_3': url[7], 'children_uid_4': uid } })
+          await graphQLClientS.request(DELETE_CHILDREN_4, { _id: url[2], input: { 'children_uid_0': url[4], 'children_uid_1': url[5], 'children_uid_2': url[6], 'children_uid_3': url[7], 'children_uid_4': uid } })
           push(`${asPath}`)
         } else if (url.length === 9) {
-          await graphQLClientS.request(DELETE_CHILDREN_5, { _id: query.id, input: { 'children_uid_0': url[4], 'children_uid_1': url[5], 'children_uid_2': url[6], 'children_uid_3': url[7], 'children_uid_4': url[8], 'children_uid_5': uid } })
+          await graphQLClientS.request(DELETE_CHILDREN_5, { _id: url[2], input: { 'children_uid_0': url[4], 'children_uid_1': url[5], 'children_uid_2': url[6], 'children_uid_3': url[7], 'children_uid_4': url[8], 'children_uid_5': uid } })
           push(`${asPath}`)
         }
       }
