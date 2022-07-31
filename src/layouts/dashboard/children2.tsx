@@ -1,32 +1,31 @@
 import { DataNode } from "antd/lib/tree"
 import { useRouter } from "next/router"
 import { FC } from "react"
-import { TreeAnt } from "../../components/ant/tree"
-import { Heading, HeadingDashboard, Main } from "../../components/component"
+import {  HeadingDashboard, HeadingForm } from "../../components/component"
 import { FormChildren } from "../../components/form/childrenForm"
 import { GridSection } from "../../components/grid/gridPages"
-import { Children, ISite } from "../../interfaces/site"
-import { getQuery } from '../../utils/function';
-import { getChildren1DataForm, getChildren2DataForm, getSite, getSiteChildren0, getSiteChildren1, getSiteChildren2, getSiteChildren3 } from "../../utils/getSiteByUrl"
-
+import { ISite } from "../../interfaces/site"
+import { lastElement } from '../../utils/function';
+import { getSiteChildrens3, getChildren2DataForm } from "../../utils/functionV2"
 interface Pages {
   sites: ISite[]
 }
 
 export const Children2: FC<Pages> = ({ sites }) => {
-  const { asPath, pathname, query } = useRouter()
-  const slug = getQuery(asPath)
-
+  const { asPath } = useRouter()
   return (
     <>
-      <HeadingDashboard title='Sitios'/>
-      {
-        slug[6] !== 'new' && getSiteChildren2(sites, asPath).length !== 0
-          ?
-          <GridSection data={getSiteChildren3(sites, asPath)} />
-          :
-          null
+    {
+        ['new', 'home'].includes(lastElement(asPath))
+        ?
+        null
+        :
+        <>
+        <HeadingDashboard title='Pages'/>
+        <GridSection data={getSiteChildrens3(sites, asPath)} />
+        </>
       }
+      <HeadingForm title="Page" />
       <FormChildren data={getChildren2DataForm(sites, asPath)} />
 
     </>

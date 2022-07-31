@@ -1,20 +1,26 @@
 import { DataNode } from "antd/lib/tree"
 import { useRouter } from "next/router"
 import { FC, useState } from "react"
-import { Heading, HeadingDashboard, Main } from "../../components/component"
+import { Heading, HeadingDashboard, HeadingForm, Main } from "../../components/component"
 
 import { FormSite } from "../../components/form/siteForm"
 import { Grid } from "../../components/grid/grid"
 import { ISite } from "../../interfaces/site"
+import { lastElement } from "../../utils/function"
 import { getSiteDataForm } from "../../utils/functionV2"
 
-interface Site {
+interface Id {
   sites: ISite[]
 }
 const data = [
   {
     title: 'pages',
     href: 'pages',
+    imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg"
+  },
+  {
+    title: 'blogs',
+    href: 'blogs',
     imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg"
   },
   {
@@ -28,26 +34,24 @@ const data = [
     imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg"
   },
 ]
-export const Site: FC<Site> = ({ sites }) => {
-  const { asPath, pathname, query } = useRouter()
-  const [open, setOpen] = useState(false)
-
-  const url = asPath.split('/')
+export const Id: FC<Id> = ({ sites }) => {
+  const { asPath } = useRouter()
 
   return (
     <>
-      <HeadingDashboard title='Sitios'/>
-      {
-        url[url.length - 1] === "new"
-          ?
-          null
-          :
-          <Grid data={data} url={asPath} />
+    {
+        ['new', 'home'].includes(lastElement(asPath))
+        ?
+        null
+        :
+        <>
+        <HeadingDashboard title='Site'/>
+        <Grid data={data} />
+        </>
       }
-      {/* <ModalH open={open} setOpen={setOpen} >
-        {/* <FormSite site={getSiteDataForm(sites, asPath)} /> 
-      </ModalH> */}
-        <FormSite data={getSiteDataForm(sites, asPath)} /> 
+     
+      <HeadingForm title="Site" />
+      <FormSite data={getSiteDataForm(sites, asPath)} />
 
 
     </>

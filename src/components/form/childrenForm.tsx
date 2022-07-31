@@ -41,7 +41,7 @@ import { ChildrenForm, SiteForm } from '../../interfaces/site';
 const { Option } = Select;
 
 const normFile = (e: any) => {
-  console.log('Upload event:', e);
+  // console.log('Upload event:', e);
   if (Array.isArray(e)) {
     return e;
   }

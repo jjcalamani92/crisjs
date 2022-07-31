@@ -25,6 +25,10 @@ export const getURL = (pathname: string) => {
 	url.length = url.length - 1
 	return url.join('/')
 }
+export const lastElement = (asPath: string):string => {
+  let url = getQuery(asPath)
+	return url[url.length-1]
+}
 
 export const getQuery = (asPath: string) => {
 	return asPath.slice(1).split('/')

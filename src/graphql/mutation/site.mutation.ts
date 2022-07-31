@@ -78,6 +78,60 @@ export const UPDATE_CHILDREN_2 = gql`
     }
   }
 `;
+export const DELETE_CHILDREN_0 = gql`
+  mutation DeleteChildren0($_id: ID!, $input: DeleteChildren!) {
+    deleteChildren0(_id: $_id, input: $input) {
+			data{
+      title
+      }
+    }
+  }
+`;
+export const DELETE_CHILDREN_1 = gql`
+  mutation DeleteChildren1($_id: ID!, $input: DeleteChildren!) {
+    deleteChildren1(_id: $_id, input: $input) {
+			data{
+      title
+      }
+    }
+  }
+`;
+export const DELETE_CHILDREN_2 = gql`
+  mutation DeleteChildren2($_id: ID!, $input: DeleteChildren!) {
+    deleteChildren2(_id: $_id, input: $input) {
+			data{
+      title
+      }
+    }
+  }
+`;
+export const DELETE_CHILDREN_3 = gql`
+  mutation DeleteChildren3($_id: ID!, $input: DeleteChildren!) {
+    deleteChildren3(_id: $_id, input: $input) {
+			data{
+      title
+      }
+    }
+  }
+`;
+export const DELETE_CHILDREN_4 = gql`
+  mutation DeleteChildren4($_id: ID!, $input: DeleteChildren!) {
+    deleteChildren4(_id: $_id, input: $input) {
+			data{
+      title
+      }
+    }
+  }
+`;
+export const DELETE_CHILDREN_5 = gql`
+  mutation DeleteChildren5($_id: ID!, $input: DeleteChildren!) {
+    deleteChildren5(_id: $_id, input: $input) {
+			data{
+      title
+      }
+    }
+  }
+`;
 export const ADD_SECTION_0 = gql`
   mutation AddSection0($_id:ID!, $input: AddSectionInput0!) {
     addSection0(_id:$_id, input: $input) {

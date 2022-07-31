@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const FormSite: FC<Props> = ({ site, url }) => {
-  console.log(site);
+  // console.log(site);
   
   const {replace, push} = useRouter()
 
@@ -24,7 +24,7 @@ export const FormSite: FC<Props> = ({ site, url }) => {
   })
 
   const onSubmit = async (form: SiteForm) => {
-    console.log(form);
+    // console.log(form);
     
     // if (site._id) {
     //   Swal.fire({

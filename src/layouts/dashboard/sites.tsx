@@ -31,10 +31,11 @@ const data = [
 export const Sites: FC<Site> = ({ sites }) => {
   const { asPath, pathname, query } = useRouter()
   const url = asPath.split('/')
-
+  
   return (
     <>
       <HeadingDashboard title='Sitios'/>
+      <GridSite data={sites} />
       {/* {
         url[url.length - 1] === "new"
           ?
@@ -43,7 +44,6 @@ export const Sites: FC<Site> = ({ sites }) => {
           <Grid data={data} url={asPath} />
       } */}
       {/* <FormSite data={getSiteDataForm(sites, asPath)} /> */}
-      <GridSite data={sites} />
     </>
   )
 }

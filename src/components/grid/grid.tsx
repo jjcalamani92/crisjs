@@ -6,32 +6,30 @@ import { Main } from "../component";
 
 interface Grid {
   data: any[]
-  url: string
   // data: Category[] | Section[] | Featured[] | Item[] | IMark[];
 }
-export const Grid: FC<Grid> = ({ data, url }) => {  
+export const Grid: FC<Grid> = ({ data }) => {  
+
   return (
-    <Main>
       <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 col-span-5 gap-3 md:gap-6`}>
         {data.map((d, i) => (
-          <Card data={d} key={i} url={url}/>
+          <Card data={d} key={i}/>
         ))}
       </div>
-    </Main>
   )
 }
 
 interface Card {
   data: any
-  url: string
 }
 
-const Card: FC<Card> = ({ data, url }) => {
-  const { push } = useRouter()
-
+const Card: FC<Card> = ({ data }) => {
+  const { push, asPath } = useRouter()
+  // console.log('card');
+  
   return (
     <div className="shadow-lg p-2 ">
-      <Link href={`${url}/${data.href}`}>
+      <Link href={`${asPath}/${data.href}`}>
         <a>
           <div className="w-full bg-white rounded-sm overflow-hidden leading-none">
             <Image

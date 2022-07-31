@@ -1,4 +1,4 @@
-import { ISite, SiteForm } from "../interfaces/site";
+import { ChildrenForm, ISite, SiteForm } from "../interfaces/site";
 import { getQuery } from "./function";
 
 export const getSite = (sitesAll: ISite[], asPath: string) => {
@@ -6,20 +6,36 @@ export const getSite = (sitesAll: ISite[], asPath: string) => {
     return sitesAll.find(data => data._id === slug[2])
 }
 
-export const getSiteChildren0 = (sitesAll: ISite[], asPath: string) => {
+export const getSiteChildrens0 = (sitesAll: ISite[], asPath: string) => {
   return getSite(sitesAll, asPath)!.route
+}
+export const getSiteChildren0 = (sitesAll: ISite[], asPath: string) => {
+  const slug = getQuery(asPath)
+  return getSiteChildrens0(sitesAll, asPath).find(data => data.href === slug[4])
+}
+
+export const getSiteChildrens1 = (sitesAll: ISite[], asPath: string) => {
+  return getSiteChildren0(sitesAll, asPath)!.children
 }
 export const getSiteChildren1 = (sitesAll: ISite[], asPath: string) => {
   const slug = getQuery(asPath)
-  return getSiteChildren0(sitesAll, asPath).find(data => data.href === slug[4])!.children
+  return getSiteChildrens1(sitesAll, asPath).find(data => data.href === slug[5])
+}
+
+export const getSiteChildrens2 = (sitesAll: ISite[], asPath: string) => {
+  return getSiteChildren1(sitesAll, asPath)!.children
 }
 export const getSiteChildren2 = (sitesAll: ISite[], asPath: string) => {
   const slug = getQuery(asPath)
-  return getSiteChildren1(sitesAll, asPath).find(data => data.href === slug[5])!.children
+  return getSiteChildrens2(sitesAll, asPath).find(data => data.href === slug[6])
+}
+
+export const getSiteChildrens3 = (sitesAll: ISite[], asPath: string) => {
+  return getSiteChildren2(sitesAll, asPath)!.children
 }
 export const getSiteChildren3 = (sitesAll: ISite[], asPath: string) => {
   const slug = getQuery(asPath)
-  return getSiteChildren2(sitesAll, asPath).find(data => data.href === slug[6])!.children
+  return getSiteChildrens3(sitesAll, asPath).find(data => data.href === slug[7])
 }
 
 
@@ -88,6 +104,90 @@ export const getSiteDataForm = (
       description: site!.data.description,
       type: site!.type,
       client: site!.client,
+    };
+  }
+  return data;
+};
+export const getChildren0DataForm = (
+  sitesAll: ISite[],
+  asPath: string
+): ChildrenForm => {
+  const slug = getQuery(asPath)
+
+  let data: ChildrenForm;
+  if (slug[4] === "new") {
+    data = {
+      name: "",
+      imageSrc:
+        "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg",
+      imageAlt: "image description",
+      description: "description",
+
+    };
+  } else {
+    const site = getSiteChildren0(sitesAll, asPath)
+    data = {
+      uid: site!.uid,
+      name: site!.name,
+      imageSrc: site!.imageSrc,
+      imageAlt: site!.imageAlt,
+      description: site!.description,
+    };
+  }
+  return data;
+};
+export const getChildren1DataForm = (
+  sitesAll: ISite[],
+  asPath: string
+): ChildrenForm => {
+  const slug = getQuery(asPath)
+
+  let data: ChildrenForm;
+  if (slug[5] === "new") {
+    data = {
+      name: "",
+      imageSrc:
+        "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg",
+      imageAlt: "image description",
+      description: "description",
+
+    };
+  } else {
+    const site = getSiteChildren1(sitesAll, asPath)
+    data = {
+      uid: site!.uid,
+      name: site!.name,
+      imageSrc: site!.imageSrc,
+      imageAlt: site!.imageAlt,
+      description: site!.description,
+    };
+  }
+  return data;
+};
+export const getChildren2DataForm = (
+  sitesAll: ISite[],
+  asPath: string
+): ChildrenForm => {
+  const slug = getQuery(asPath)
+
+  let data: ChildrenForm;
+  if (slug[6] === "new") {
+    data = {
+      name: "",
+      imageSrc:
+        "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg",
+      imageAlt: "image description",
+      description: "description",
+
+    };
+  } else {
+    const site = getSiteChildren2(sitesAll, asPath)
+    data = {
+      uid: site!.uid,
+      name: site!.name,
+      imageSrc: site!.imageSrc,
+      imageAlt: site!.imageAlt,
+      description: site!.description,
     };
   }
   return data;

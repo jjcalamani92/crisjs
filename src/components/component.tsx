@@ -10,6 +10,7 @@ import { ModalH } from "./headlessui/modal";
 import { Dropdowns } from "./dropdowns";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { slug } from '../utils/function';
 
 interface Main {
   children: React.ReactNode;
@@ -122,7 +123,7 @@ interface HeadingDashboard0 {
 export const HeadingDashboard0: FC<HeadingDashboard0> = ({ title, url, open, setOpen }) => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const onClick = (href: string) => {
-    console.log('click', href);
+    // console.log('click', href);
     switch (href) {
       case 'new':
         return setOpen!(true)
@@ -286,8 +287,8 @@ interface HeadingDashboard {
 }
 
 export const HeadingDashboard: FC<HeadingDashboard> = ({ title}) => {
-  const { asPath , push } = useRouter()
-  console.log(asPath);
+  const { asPath , push, query } = useRouter()
+  // console.log(query.slug![2]);
   
   const clickNew = () => { 
     push(`${asPath}/new`)
@@ -295,17 +296,19 @@ export const HeadingDashboard: FC<HeadingDashboard> = ({ title}) => {
     
   }
   return (
-    <>
-      <Main>
         <div className="flex items-baseline justify-between py-6">
           <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">{title}</h1>
-          <div className="flex">
-            <Button  content='nuevo' click={() => clickNew()} />
+          {
+            query.slug!.length === 3
+            ?
+            null
+            :
+            <div className="flex">
+              <Button  content='New' click={() => clickNew()} />
+            </div>
+          }
 
-          </div>
         </div>
-      </Main>
-    </>
   )
 }
 
@@ -315,23 +318,13 @@ interface HeadingForm {
 
 export const HeadingForm: FC<HeadingForm> = ({ title }) => {
   const { pathname, query } = useRouter()
-  Object.keys(query)
-
-  // query[Object.keys(query)[Object.keys(query).length - 1]]
-  const n = query[Object.keys(query)[Object.keys(query).length - 1]]
-  // console.log(query[Object.keys(query)[Object.keys(query).length - 1]])
-  const orangeirect = () => {
-    // console.log('hola');
-  }
+  const url = query.slug
+  
   return (
-    <Main>
       <div className=" z-10 flex items-baseline justify-between py-6 ">
-        <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">{n === 'new' ? `Created ${title}` : `Updated ${title}`}</h1>
-        {/* <div>
-            <Button  content='nuevo' click={() => orangeirect()} />
-          </div> */}
+        <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">{url![url!.length-1] === 'new' ? `Created ${title}` : `Updated ${title}`}</h1>
+        
       </div>
-    </Main>
   )
 }
 interface Heading {
@@ -359,6 +352,3 @@ export const Heading: FC<Heading> = ({ title }) => {
   )
 }
 
-function clickNew(): void {
-  throw new Error("Function not implemented.");
-}
