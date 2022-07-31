@@ -11,25 +11,25 @@ import request, { RequestDocument } from 'graphql-request'
 
 interface Props {
   sitesAll: ISite[]
+  site: ISite
 }
 
-const fetcher = (query: RequestDocument) => request(`${process.env.APIS_URL}/graphql`, query)
 
-
-
-const Home: FC<Props> = ({ sitesAll }) => {
+const Home: FC<Props> = ({ sitesAll, site }) => {
+  // console.log(getPathsBySite(site));
+  
   return (
-      <Layout
-        title='crisjs'
-        site={getSiteByVne(sitesAll)}
-      >
-        <Routes sites={sitesAll} />
-      </Layout>
+    <Layout
+      title='crisjs'
+      site={getSiteByVne(sitesAll)}
+    >
+      <Routes sites={sitesAll} />
+    </Layout>
   )
 }
 export const getStaticPaths: GetStaticPaths = async () => {
   const { site } = await graphQLClientS.request(SITE_PATHS, { _id: process.env.API_SITE })
-  
+
   return {
     paths: getPathsBySite(site),
     fallback: 'blocking'
@@ -38,8 +38,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { sitesAll } = await graphQLClientS.request(SITES)
+  const { site } = await graphQLClientS.request(SITE_PATHS, { _id: process.env.API_SITE })
+
   return {
-    props: { sitesAll }, // will be passed to the page component as props
+    props: { sitesAll, site }, // will be passed to the page component as props
     revalidate: 10,
   }
 }

@@ -5,6 +5,44 @@ export const getSite = (sitesAll: ISite[], asPath: string) => {
   const slug = getQuery(asPath)
     return sitesAll.find(data => data._id === slug[2])
 }
+export const getSites = (sitesAll: ISite[]) => {
+  return sitesAll
+}
+
+export const getPathSites = (sitesAll: ISite[]) => {
+  return getSites(sitesAll).map(data =>`/dashboard/sites/${data._id}`)
+}
+
+export const getPathsSites = (sitesAll: ISite[], asPath: string) => {
+  return [...getSites(sitesAll).map(data =>`/dashboard/sites/${data._id}`), `/dashboard/sites/new`].find(data => data === asPath)
+}
+
+export const getPathChildrens0 = (sitesAll: ISite[]) => {
+  return getSites(sitesAll).map(data => data.route.map(data0 => `/dashboard/sites/${data._id}/pages/${data0.href}`)).flat(1)
+}
+
+export const getPathsChildrens0 = (sitesAll: ISite[], asPath: string) => {
+  return getSites(sitesAll).map(data => [...data.route.map(data0 => `/dashboard/sites/${data._id}/pages/${data0.href}`), `/dashboard/sites/${data._id}/pages/new`]).flat(1).find(data => data === asPath)
+}
+
+export const getPathsChildrens1 = (sitesAll: ISite[], asPath: string) => {
+  return getSites(sitesAll).map(data => data.route.map(data0 => [...data0.children.map(data1 => `/dashboard/sites/${data._id}/pages/${data0.href}/${data1.href}`), `/dashboard/sites/${data._id}/pages/${data0.href}/new`])).flat(2).find(data => data === asPath)
+}
+export const getPathsChildrens2 = (sitesAll: ISite[], asPath: string) => {
+  return getSites(sitesAll).map(data => data.route.map(data0 => data0.children.map(data1 => [...data1.children.map(data2 =>`/dashboard/sites/${data._id}/pages/${data0.href}/${data1.href}/${data2.href}`), `/dashboard/sites/${data._id}/pages/${data0.href}/${data1.href}/new`]))).flat(3).find(data => data === asPath)
+}
+
+
+export const getChildrens0 = (sitesAll: ISite[]) => {
+  return getSites(sitesAll).map(data => data.route).flat(1)
+}
+export const getChildrens1 = (sitesAll: ISite[]) => {
+  return getChildrens0(sitesAll).map(data => data.children).flat(1)
+}
+export const getChildrens2 = (sitesAll: ISite[]) => {
+  return getChildrens1(sitesAll).map(data => data.children).flat(1)
+}
+
 
 export const getSiteChildrens0 = (sitesAll: ISite[], asPath: string) => {
   return getSite(sitesAll, asPath)!.route
@@ -54,16 +92,29 @@ export const getSiteDSPC0 = (sitesAll: ISite[], asPath:string) => {
   const data = sitesAll.map(data => data.route.map(data0 => [`/dashboard/sites/${data._id}/pages/${data0.href}`, `/dashboard/sites/${data._id}/pages/new`]) ).flat(2)
   return [... new Set(data.map(data => data))].map(data => data).find(data => data === asPath)
 }
+export const getSiteDSPC00 = (sitesAll: ISite[], asPath:string) => {
+  const data = sitesAll.map(data => data.route.map(data0 => [`/dashboard/sites/${data._id}/pages/${data0.href}`, `/dashboard/sites/${data._id}/pages/new`]) ).flat(2)
+  return [... new Set(data.map(data => data))]
+}
 
 export const getSiteDSPC1 = (sitesAll: ISite[], asPath:string) => {
   let data = sitesAll.map(data => data.route.map(data0 => data0.children && data0.children.map(data1 => [`/dashboard/sites/${data._id}/pages/${data0.href}/${data1.href}`,`/dashboard/sites/${data._id}/pages/${data0.href}/new`]))).flat(3).filter(data => data !== null)
   return [... new Set(data.map(data => data))].map(data => (data)).find(data => data === asPath)
+}
+export const getSiteDSPC11 = (sitesAll: ISite[], asPath:string) => {
+  let data = sitesAll.map(data => data.route.map( data0 => data0.children.map(data1 => [`/dashboard/sites/${data._id}/pages/${data0.href}/${data1.href}`,`/dashboard/sites/${data._id}/pages/${data0.href}/new`]))).flat(3)
+  return [... new Set(data.map(data => data))]
 }
 
 export const getSiteDSPC2 = (sitesAll: ISite[], asPath:string) => {
   let data = sitesAll.map(data => data.route.map(data0 => data0.children && data0.children.map(data1 => data1.children && data1.children.map(data2 => [`/dashboard/sites/${data._id}/pages/${data0.href}/${data1.href}/${data2.href}`,`/dashboard/sites/${data._id}/pages/${data0.href}/${data1.href}/new`])))).flat(4).filter(data => data !== null)
   return [... new Set(data.map(data => data))].map(data => data).find(data => data === asPath)
 }
+export const getSiteDSPC22 = (sitesAll: ISite[], asPath:string) => {
+  let data = sitesAll.map(data => data.route.map(data0 => data0.children && data0.children.map(data1 => data1.children && data1.children.map(data2 => [`/dashboard/sites/${data._id}/pages/${data0.href}/${data1.href}/${data2.href}`,`/dashboard/sites/${data._id}/pages/${data0.href}/${data1.href}/new`])))).flat(4).filter(data => data !== null)
+  return [... new Set(data.map(data => data))]
+}
+
 //TODO: data forms
 
 export const getSiteDataForm = (
