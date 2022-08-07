@@ -25,6 +25,7 @@ import Link from 'next/link'
 import { Children } from '../interfaces/site';
 import { Icon } from './icon'
 import { Nav } from './nav'
+import { Data } from '../interfaces/siteV1'
 
 
 const solutions = [
@@ -85,12 +86,10 @@ const resources = [
 
 
 interface Header {
-  data: Children[] | any
+  data: Data
 }
 export const Header: FC<Header> = ({ data }) => {
-
-
-
+  // console.log(data);
   return (
     <Popover className="relative bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -111,7 +110,7 @@ export const Header: FC<Header> = ({ data }) => {
               <MenuIcon className="h-6 w-6" aria-hidden="true" />
             </Popover.Button>
           </div>
-          <Nav data={data} />
+          {/* <Nav data={data} /> */}
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
             <a href="#" className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
               Sign in

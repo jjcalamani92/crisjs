@@ -11,23 +11,7 @@ import { ISite } from "../../interfaces/site"
 interface Site {
   sites: ISite[]
 }
-const data = [
-  {
-    title: 'pages',
-    href: 'pages',
-    imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg"
-  },
-  {
-    title: 'products',
-    href: 'products',
-    imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg"
-  },
-  {
-    title: 'marks',
-    href: 'marks',
-    imageSrc: "https://res.cloudinary.com/dvcyhn0lj/image/upload/v1655217461/14.1_no-image.jpg_gkwtld.jpg"
-  },
-]
+
 export const Sites: FC<Site> = ({ sites }) => {
   const { asPath, pathname, query } = useRouter()
   const url = asPath.split('/')
@@ -36,14 +20,6 @@ export const Sites: FC<Site> = ({ sites }) => {
     <>
       <HeadingDashboard title='Sitios'/>
       <GridSite data={sites} />
-      {/* {
-        url[url.length - 1] === "new"
-          ?
-          null
-          :
-          <Grid data={data} url={asPath} />
-      } */}
-      {/* <FormSite data={getSiteDataForm(sites, asPath)} /> */}
     </>
   )
 }

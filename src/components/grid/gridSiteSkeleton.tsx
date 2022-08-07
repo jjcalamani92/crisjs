@@ -2,23 +2,36 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
+import Skeleton from "react-loading-skeleton";
 import { ISite } from "../../interfaces/site";
 
 import { Button } from "../component";
+const data = [1, 2, 3, 4, 5, 6]
 
-interface Grid {
-  data: ISite[]
-}
 interface CardSite {
-  data: ISite
+  data: any
 }
-export const GridSite: FC<Grid> = ({ data }) => {
+export const GridSiteSkeleton = () => {
   return (
+    // <Main>
     <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 col-span-5 gap-3 md:gap-6`}>
       {data.map((d, i) => (
         <CardSite data={d} key={i} />
       ))}
+      <div className="shadow-lg p-2 ">
+        <div className="w-full bg-white rounded-sm">
+          {<Skeleton
+            height={210} />}
+        </div>
+        <div className="py-2 flex justify-between">
+          <h3 className="text-xs md:text-sm text-gray-700">
+            {<Skeleton />}
+          </h3>
+          {<Skeleton height={50} />}
+        </div>
+      </div>
     </div>
+    // </Main>
   )
 }
 
@@ -41,30 +54,15 @@ const CardSite: FC<CardSite> = ({ data }) => {
     //   }
     // })
   }
-  const { title, imageSrc, imageAlt } = data.data
-  const { _id, domain } = data
+  // const {title, imageSrc, imageAlt} = data.data
+  // const {_id, domain} = data
 
   return (
-    <div className="shadow-lg p-2 ">
-      <Link href={`${asPath}/${_id}`}>
-        <a>
-          <div className="w-full bg-white rounded-sm">
-            <Image
-              src={imageSrc}
-              alt={imageAlt}
-              width={210}
-              height={210}
-              objectFit={'cover'}
-            />
-          </div>
-          <div className="py-2 flex justify-between">
-            <h3 className="text-xs md:text-sm text-gray-700">
-              {title}
-            </h3>
-          </div>
-        </a>
-      </Link>
-      <Button bg="none" content='eliminar' click={() => onDelete(_id)} />
+    <div className="shadow-lg ">
+      <Skeleton
+        height={210} />
+      <Skeleton height={16} />
+      <Skeleton height={30} />
     </div>
   )
 }

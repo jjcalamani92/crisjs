@@ -1,52 +1,44 @@
 export interface Site {
   _id: string
   data: Data
-  route: Children[]
+  children: Children[]
   client: string
   type: string
-  domain: string
 }
 export interface Data {
-  title: string;
-  logo: string;
-  icon: string;
-  imageSrc: string;
-  imageAlt: string;
+  name: string;
+  // logo: string;
+  // icon: string;
+  // imageSrc: string;
+  // imageAlt: string;
   numberPhone: number;
   address: string;
-  location: string;
+  // location: string;
   description: string;
 }
 
 export interface Children {
   uid: string;
-  name: string;
-  href: string;
-  description: string;
-  icon: string;
-  imageSrc: string;
-  imageAlt: string;
-  content: Content;
-  // items?: Item[];
-  // featured?:Featured[];
+  head: Head;
+  body: Body;
+  slug: string;
   children:Children[];
 }
 export interface Content {
-  header: Header;
+  head: Head;
   body: Body;
 }
-export interface Header {
-  title: string;
-  imageSrc: string;
-  imageAlt: string;
+export interface Head {
+  name: string;
+  href: string;
+  description: string;
+  image: Image
 }
 export interface Body {
-  h1: string;
-  span: string;
-  p: string;
-  imageSrc: string;
-  imageAlt: string;
-  button: string[];
+  title: string;
+  href: string;
+  image: Image
+
 }
 export interface SiteForm {
   _id?: string
@@ -69,6 +61,14 @@ export interface ChildrenForm {
   description: string;
   imageSrc: string;
   imageAlt: string;
+}
+export interface Domain {
+  name: string;
+  dlt: string;
+}
+export interface Image {
+  src: string;
+  alt: string;
 }
 
 // export interface Route {

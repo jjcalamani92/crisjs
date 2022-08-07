@@ -1,17 +1,18 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FC } from "react";
+import { Main } from "../components/component";
 import { Footer } from "../components/footer";
 import { Header } from "../components/headerPages";
-import { ISite } from "../interfaces/site";
+import { Site } from "../interfaces/site";
+import { Data } from "../interfaces/siteV1";
 
 interface Layout {
 	title: string;
 	pageDescription?: string;
 	imageFullUrl?: string;
 	children?: React.ReactNode;
-	sites?: ISite[]
-	site: ISite
+	data: Data
 }
 
 export const Layout: FC<Layout> = ({
@@ -19,15 +20,14 @@ export const Layout: FC<Layout> = ({
 	children,
 	pageDescription,
 	imageFullUrl,
-	sites,
-	site
+	data
 }) => {
 	const router = useRouter()
   const { pathname, asPath } = router
 	// console.log(sites);
 	// const site = sites.find((site: { _id: string; }) => site._id === process.env.API_SITE)
-	const hero = site?.route[0].content.body
-	const header = site?.route .filter((data: { href: string}) => data.href !== 'home')
+	// const hero = site?.route[0].content.body
+	// const header = site?.route .filter((data: { href: string}) => data.href !== 'home')
 	
 	
 	
@@ -45,10 +45,10 @@ export const Layout: FC<Layout> = ({
 				<meta property="product:price:currency" content="USD" />
 				<meta property="product:price:amount" content="25" />
 			</Head>
-      <Header data={header}  />
-			<main>
+      <Header data={data}  />
+			<Main>
 				{children}
-			</main>
+			</Main>
 			<Footer />
 			</>
 	);
